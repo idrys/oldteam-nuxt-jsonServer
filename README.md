@@ -4,6 +4,9 @@
 
 ## Build Setup
 
+# Uruchomienie json-server
+$ json-server --watch db.json
+
 ``` bash
 # install dependencies
 $ yarn install
