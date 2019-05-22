@@ -5,25 +5,25 @@
          <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="imgUrl" ></v-img> 
+         <v-img class="white--text elevation-3"  height="170px" :src="post.imgUrl" ></v-img> 
          <!-- :src="imgUrl" -->
         
         <v-flex xs12 align-end d-flex>
           
-                <span class="headline" v-show="title==''">Tytuł</span>
-                <span class="headline" v-show="title">{{title}}</span>
+                <span class="headline" v-show="post.title==''">Tytuł</span>
+                <span class="headline" v-show="post.title">{{post.title}}</span>
         </v-flex>
-            <p v-show="content==''">Opis</p>
-            <p v-show="content">{{content}}</p>
+            <p v-show="post.content==''">Opis</p>
+            <p v-show="post.content">{{post.content}}</p>
         </v-card-text>
 
         <v-card-actions>
-            <p v-show="raport">
+            <p v-show="post.raport">
               <v-btn flat  class="blue--text">Sprawozdanie</v-btn>
             </p>
             <!-- <v-btn color="warning" >Opis</v-btn> -->
             <v-spacer></v-spacer>
-            <p v-show="gallery">
+            <p v-show="post.gallery">
               <v-btn flat  class="blue--text" >Zobacz więcej</v-btn>
             </p>
         </v-card-actions>
@@ -46,23 +46,23 @@
       <v-card-text class="text-xs-center">
         <v-text-field 
           label="Ścieka do zdjęcia"
-          v-model="imgUrl"
+          v-model="post.imgUrl"
           >
         </v-text-field>
         <v-text-field 
           label="Tytuł"
-          v-model="title"
+          v-model="post.title"
           >
         </v-text-field>
         <v-text-field 
           label="Opis"
-          v-model="content"
+          v-model="post.content"
           >
         </v-text-field>
          
         <v-text-field           
           label="Ścieka do galerii"
-          v-model="gallery"
+          v-model="post.gallery"
           >
         </v-text-field>
          
@@ -90,7 +90,7 @@
               <span>Świerzy formularz</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="primary" flat >Zapisz</v-btn>
+          <v-btn color="primary" flat @click="sumit">Zapisz</v-btn>
         </v-card-actions>
 
     </v-card>
@@ -115,12 +115,24 @@ export default {
       })
   },
   data: ()=>({
-    //post: Object,
-    gallery: '',
-    title: '',
-    content: '',
-    imgUrl: '',
-    raport: '',
-  })
+    post: {
+      id: 0,
+      gallery: '/sciezka/do/galeri/',
+      title: 'Tytuł testowy',
+      content: 'Opis',
+      imgUrl: 'BenNevis.jpg',
+      raport: 'opis długi',
+    }
+  }),
+  methods: {
+    sumit(){
+      this.post.id = 14
+      console.log('Title: ', this.post)
+      this.$store.dispatch('createPost', this.post)
+    }
+    },
+  computed:{
+    
+  }
 }
 </script>

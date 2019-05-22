@@ -1,6 +1,5 @@
 <template>
 <div>
-
   <Banner></Banner>
   <Description></Description>
 
@@ -22,13 +21,10 @@
           <v-pagination
             v-model="pagination"
             :length="pages"
-
             >          
           </v-pagination>
         </v-layout>
   </v-container>
-      
-<v-btn ref="button" color="primary" block @click="$vuetify.goTo(target, options)">scroll</v-btn>
 
   <BannerBottom></BannerBottom>
   <About></About>
@@ -37,7 +33,6 @@
 
 
 <script>
-//import PostList from './PostList.vue'
 import Banner from '~/components/Banner.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
@@ -88,8 +83,5 @@ export default {
 
   },
 
-  // computed: {
-  //   
-  // },
 }
 </script>

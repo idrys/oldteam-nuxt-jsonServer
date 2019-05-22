@@ -26,7 +26,6 @@ const store = () => new Vuex.Store({
       this.state.pagination.page = page
     },
     GET_POST_PAGE(){
-      //console.log('page: ' , page)
       return this.state.pagination.page 
     },
     SET_POSTS_TOTAL(tate, eventsTotal){
@@ -37,10 +36,17 @@ const store = () => new Vuex.Store({
   },
 
   actions: {
+
     createPost({ commit }, post) {
-      return PostsService.Post(post).then(() => {
-        commit('ADD_POST', post)
-      })
+      //console.log('Wartość posta: ', post)
+      return 
+        PostsService.Post(post)
+          .then(() => {
+            commit('ADD_POST', post)
+          })
+          .catch(error => {
+            console.log('There was an error:', error.response)
+          })
     },
 
     fetchEvents({ commit }, { perPage, page }) {
@@ -51,7 +57,7 @@ const store = () => new Vuex.Store({
             parseInt(response.headers['x-total-count'])
           )
           commit('SET_POST', response.data)
-          console.log('PAge: ', page)
+          //console.log('PAge: ', page)
           //commit('SET_POST_PAGE', page)
         })
         .catch(error => {
@@ -67,7 +73,6 @@ const store = () => new Vuex.Store({
           parseInt(response.headers['x-total-count'])
         )
         commit('SET_POST', response.data, page)
-        //console.log('PAge: ', page)
       })
       .catch(error => {
         console.log('There was an error:', error.response)

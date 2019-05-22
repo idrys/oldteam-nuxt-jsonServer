@@ -21,17 +21,10 @@ import axios from 'axios'
 
       getPosts(perPage, page){
         return apiClient('/posts?_limit=' + perPage + '&_page=' + page)
-      }
+      },
 
-      // createPost(post){
-      //   apiClient.post({          
-      //     "id": post.id,
-      //     "title": post.title,
-      //     "opis": post.opis,
-      //     "content": post.content,
-      //     "imgUrl": post.imgUrl,
-      //     "gallery": post.gallery
-      //   })
-      // },
+      Post(post){
+        apiClient.post('/posts',  post )       
+      },
       
     }
