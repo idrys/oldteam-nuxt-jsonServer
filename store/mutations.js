@@ -10,6 +10,9 @@ export const mutations = () => ({
     .catch(error => {
       console.log('There was an error:', error.response) // Logs out the error
     })
+  },
+  SET_POSTS(state, posts) {
+    state.posts = posts
   }
   
 })

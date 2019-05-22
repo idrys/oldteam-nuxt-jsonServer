@@ -1,36 +1,59 @@
 <template>
 <div>
-  <Banner></Banner>
-    <v-container grid-list-md text-xs-center>
-      <h2 class="headline">Zdobywamy koronę Europy</h2>
-      <span class="subheading">
-          ... a przy okazji dobrze się bawimy
-      </span>
-  </v-container> 
-  <Departures></Departures>
-  <BannerBottom></BannerBottom>
-  <About></About>
+
+  <PostList></PostList>
+
 </div>
 </template>
 
 <script>
+import PostList from './PostList.vue'
 import Banner from '~/components/Banner.vue'
-import Departures from '~/components/Departures.vue'
+//import Departures from '~/components/Departures.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
 import store from '~/store/index.js'
 import Vuex from 'vuex'
-import { mapState } from 'vuex' 
+import { mapState, mapGetters } from 'vuex' 
 //import { store } from '~/store/index.js'
 
 export default {
+  data: {
+    price: 5,
+    quantity: 2,
+    total: 0,
+    target: null,
+    storage: []
+  },
+  method:{
+    target () { 
+      total = price * quantity
+    },
+     record (){
+      storage.push(target)
+    },
+    replay(){
+      storage.forEach(run => run());
+    }
+  },
+    
+  computed: {
+    ...mapState(['user']),
+    ...mapGetters(['getPostById'] ) ,
+    test(){
+      price = 20
+      console.log('Wartość przed:' ) // => 10
+      replay()
+      console.log('Wartość po: ' + total) // => 40
+    }
+},
   components: {
     Banner,
-    Departures,
+    PostList,
     BannerBottom,
     About,
     Vuex,
-    //store
+    store
     
   },
   data(){

@@ -1,0 +1,43 @@
+server {
+
+        server_name oldteam.club www.oldteam.club;
+
+        location / {
+              expires $expires;
+                                                        root   /var/www/oldteam.club;
+                proxy_redirect                      off;
+                proxy_set_header Host               $host;
+                proxy_set_header X-Real-IP          $remote_addr;
+                proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+                proxy_read_timeout          1m;
+                proxy_connect_timeout       1m;
+                proxy_pass                          http://127.0.0.1:3000;
+
+        }
+        location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|txt|srt|swf|woff|woff2)$ {
+          rewrite       ^/_nuxt(/.*) $1 break;
+          root /var/www/oldteam.club;
+          expires 30d;
+}
+
+
+
+}
+
+server {
+    if ($host = www.oldteam.club) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    if ($host = oldteam.club) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80 ;
+        listen [::]:80 ;
+
+        server_name oldteam.club www.oldteam.club;
+    return 404; # managed by Certbot
+
+}
