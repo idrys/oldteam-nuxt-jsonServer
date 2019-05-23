@@ -5,8 +5,8 @@
          <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="post.imgUrl" ></v-img> 
-         <!-- :src="imgUrl" -->
+         <v-img class="white--text elevation-3"  height="170px" :src="require('~/assets/img/' + post.imgUrl)" ></v-img> 
+         <!-- :src="post.imgUrl" -->
         
         <v-flex xs12 align-end d-flex>
           
@@ -110,6 +110,8 @@
 </template>
 <script>
 import AlbumService from '@/services/AlbumService.js'
+import { mapState } from 'vuex' 
+
 
 export default {
     created() {
@@ -130,7 +132,7 @@ export default {
       gallery: '/sciezka/do/galeri/',
       title: 'Tytuł testowy',
       content: 'Opis',
-      //require('~static/img/user/confirm/uploadButton.jpg')
+      //imgUrl: require('~/assets/img/BenNevis.jpg'),
       imgUrl: 'BenNevis.jpg',
       raport: 'opis długi',
       image: null
@@ -162,7 +164,7 @@ export default {
     }
   },
   computed: mapState({
-    post: state=> state.albumModule.post
+    //post: state=> state.albumModule.post
   })
 }
 </script>

@@ -18,7 +18,7 @@
     <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="post.imgUrl" ></v-img> 
+         <v-img class="white--text elevation-3"  height="170px" :src="require('~/assets/img/' + post.imgUrl)" ></v-img> 
          <!-- :src="imgUrl" -->
         
         <v-flex xs12 align-end d-flex>
