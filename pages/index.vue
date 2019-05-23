@@ -1,21 +1,20 @@
 <template>
 <div>
 
-  <PostList></PostList>
+  <AlbumList></AlbumList>
 
 </div>
 </template>
 
 <script>
-import PostList from './PostList.vue'
+import AlbumList from './AlbumList.vue'
 import Banner from '~/components/Banner.vue'
-//import Departures from '~/components/Departures.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
 import store from '~/store/index.js'
 import Vuex from 'vuex'
 import { mapState, mapGetters } from 'vuex' 
-//import { store } from '~/store/index.js'
+
 
 export default {
   data: {
@@ -49,7 +48,7 @@ export default {
 },
   components: {
     Banner,
-    PostList,
+    AlbumList,
     BannerBottom,
     About,
     Vuex,

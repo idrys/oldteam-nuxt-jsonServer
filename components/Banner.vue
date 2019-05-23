@@ -2,7 +2,7 @@
   <v-parallax :src="background" height="600">
     <v-layout  row column  align-center  justify-center  class="white--text"> 
       <v-layout  row  align-center  justify-center  class="white--text"> 
-        <v-flex xs12 elevation-24 >
+        <v-flex xs12 elevation-24 style="background: rgba( 80, 80, 80, 0.2);">
           <v-responsive>
             <v-img :src="logo" height="200" contain ></v-img>
           </v-responsive>
@@ -32,4 +32,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: .5;
+  position: absolute;
+  width: 100%;
+}
+</style>
 

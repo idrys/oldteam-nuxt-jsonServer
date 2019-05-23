@@ -1,14 +1,25 @@
 <template>
   <v-app >
-    <v-toolbar class="white" absolute>
-      <v-toolbar-title ></v-toolbar-title>
-    </v-toolbar>
+    <v-card flat true>
+      <v-container fluid>
+        <v-layout row child-flex wrap>
+          <v-toolbar absolute >
+            <v-btn fab large flat >
+              <v-img :src="logo"  max-width="80"></v-img>
+            </v-btn>
+            <v-toolbar-title>Oldteam Club</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-title>Logowanie</v-toolbar-title>
+          </v-toolbar>
+        </v-layout>
+      </v-container>
+    </v-card>
 
     <nuxt/>
 
           <v-footer class="blue darken-2">
         <v-layout row wrap align-center>
-          <v-flex xs12>
+          <v-flex xs12 >
             <div class="white--text ml-3">
               Made with
               by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
@@ -24,6 +35,7 @@
 export default {
   data() {
     return {
+      logo: require('@/assets/img/logo.png'),
       clipped: false,
       drawer: false,
       fixed: false,

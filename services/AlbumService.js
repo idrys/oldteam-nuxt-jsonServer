@@ -10,9 +10,6 @@ import axios from 'axios'
     })
     
     export default {
-      // getPosts() {
-      //   return apiClient.get('/posts')
-      // },
 
       // Nie mogę za bardzo ingerować w tą funkcję zamieniając to np w Array bo zwaracana jest alians funkcji ( albo wskaźnik do funkcji) a nie Object.
       getPost(id) {  
@@ -24,7 +21,8 @@ import axios from 'axios'
       },
 
       Post(post){
-        apiClient.post('/posts',  post )       
+        //console.log("POst post")
+        return apiClient.post('/posts',  post )       
       },
       
     }

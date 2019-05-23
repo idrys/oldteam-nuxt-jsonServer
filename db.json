@@ -100,7 +100,8 @@
       "title": "Tytuł testowy",
       "content": "Opis",
       "imgUrl": "BenNevis.jpg",
-      "raport": "opis długi"
+      "raport": "opis długi",
+      "image": null
     }
   ]
 }

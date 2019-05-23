@@ -5,11 +5,12 @@
 
    <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
-      <v-flex v-for="post in posts" :key="post.id" :post="post" xs4>
+      <v-flex v-for="post in albumModule.posts" :key="post.id" :post="post" xs4>
         <v-card >
-          <Departure 
+          <Album 
             :post = post
-            ></Departure>
+            :edit = false
+            ></Album>
         </v-card>
       </v-flex> 
 
@@ -36,7 +37,7 @@
 import Banner from '~/components/Banner.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
-import Departure from '~/components/Departure.vue'
+import Album from '~/components/Album.vue'
 import Description from '~/components/Description.vue'
 import store from '~/store/index.js'
 import Vuex from 'vuex'
@@ -44,7 +45,7 @@ import {mapState, mapGetters} from 'vuex'
 
 export default {
   components:{
-    Departure,
+    Album,
     Banner,
     Description,
     BannerBottom,
@@ -61,7 +62,7 @@ export default {
     this.$store.dispatch('fetchEvents', 1)
   },
   computed: {
-    ... mapState(['posts']),
+    ... mapState(['albumModule']),
     ...mapGetters(['pagin'] ) ,
 
     // Ile stron =  wszystkie karty / ilość kart na stronie

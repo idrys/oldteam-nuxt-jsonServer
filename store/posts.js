@@ -1,4 +1,4 @@
-import EventService from '@/services/PostsService.js'
+import EventService from '@/services/AlbumService.js'
     export const state = () => ({
       posts: [],
       post: {}

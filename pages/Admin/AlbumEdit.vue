@@ -49,6 +49,15 @@
           v-model="post.imgUrl"
           >
         </v-text-field>
+
+        <v-btn @click="onPickFile">Wczytaj plik</v-btn>
+        <input style="display: none" 
+          type="file" 
+          id="file" 
+          ref="fileInput"
+          accept="image/*" 
+          v-on:change="onFilePicked"/>
+        
         <v-text-field 
           label="Tytuł"
           v-model="post.title"
@@ -100,11 +109,11 @@
 
 </template>
 <script>
-import PostsService from '@/services/PostsService.js'
+import AlbumService from '@/services/AlbumService.js'
 
 export default {
     created() {
-    PostsService.getPosts()
+    AlbumService.getPosts()
       .then(response => {
         this.posts =  response.data 
         // Jeśli ładuje tylko jeden element to:
@@ -115,6 +124,7 @@ export default {
       })
   },
   data: ()=>({
+    file: '',
     post: {
       id: 0,
       gallery: '/sciezka/do/galeri/',
@@ -122,6 +132,7 @@ export default {
       content: 'Opis',
       imgUrl: 'BenNevis.jpg',
       raport: 'opis długi',
+      image: null
     }
   }),
   methods: {
@@ -129,8 +140,26 @@ export default {
       this.post.id = 14
       console.log('Title: ', this.post)
       this.$store.dispatch('createPost', this.post)
-    }
     },
+    onPickFile(){
+      this.$refs.fileInput.click()
+    },
+    onFilePicked(events){
+      const files = events.target.files
+      let filename = files[0].filename
+      this.post.imgUrl = files[0].name
+      console.log('files[0].filename: ', files[0].name )
+      
+      // https://www.youtube.com/watch?v=J2Wp4_XRsWc 9:00
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', ()=>{
+
+        this.post.imgUrl = fileReader.result
+      })
+      fileReader.readAsDataURL(files[0])
+      this.post.image = files[0]
+    }
+  },
   computed:{
     
   }

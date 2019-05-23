@@ -52,6 +52,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    
   ],
   /*
   ** Axios module configuration
@@ -65,9 +66,7 @@ export default {
   */
   //buildDir: '_nuxt',
   build: {
-    //publicPath: Env.get('CDN_URL', '/'), //
-    
-    
+    //publicPath: Env.get('CDN_URL', '/'), // 
     publicPath: '/dist/',
     
     transpile: ['vuetify/lib'],

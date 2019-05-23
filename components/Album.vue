@@ -1,5 +1,20 @@
 <template>
   <div>
+    <div v-show="edit">
+
+      <v-btn
+        @click="editAlbum"
+        color="red" 
+        fab 
+        small 
+        dark
+        absolute
+        
+        right>
+        <v-icon>edit</v-icon>
+      </v-btn>
+    </div>
+    
     <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
@@ -27,12 +42,17 @@
 <script>
 export default {
   props:{
-    post: Object
-
+    post: Object,
+    edit: true,
+  },
+  methods:{
+    editAlbum(){
+      console.log("Edit Album id: ", this.post.id)     
+    }
   },
   data () {
     return {
-     
+     //edit: editProps
     }
   }
 }
