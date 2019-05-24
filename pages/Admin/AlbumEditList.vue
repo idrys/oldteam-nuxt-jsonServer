@@ -1,10 +1,21 @@
 <template>
 <div>
+    <div >
+      <v-btn
+        @click="addAlbum"
+        color="blue" 
+        fab 
+        normal 
+        dark
+        absolute    
+        right>
+        <v-icon>add</v-icon>
+      </v-btn>     
+    </div>
   <br>
   <br>
   <br>
   <h1>Albumy edytuje: {{ userModule.user.name }}</h1>
-
    <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex v-for="post in albumModule.posts" :key="post.id" :post="post" xs4>
@@ -83,6 +94,11 @@ export default {
     },
 
   },
+  methods:{
+    addAlbum(){
+      this.$router.push('/Admin/AlbumCreate/')
+    },
+  }
 
 }
 </script>

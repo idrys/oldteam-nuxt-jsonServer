@@ -4,7 +4,7 @@
 
       <v-btn
         @click="editAlbum"
-        color="red" 
+        color="green" 
         fab 
         small 
         dark
@@ -12,6 +12,20 @@
         
         right>
         <v-icon>edit</v-icon>
+      </v-btn>
+      
+    </div>
+    <div  v-show="edit"> 
+      <v-btn
+        @click="editAlbum"
+        color="red" 
+        fab 
+        small 
+        dark
+        absolute
+        
+        left>
+        <v-icon>delete</v-icon>
       </v-btn>
     </div>
     
