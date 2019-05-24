@@ -9,10 +9,10 @@
     <v-layout row wrap>
       <v-flex v-for="post in albumModule.posts" :key="post.id" :post="post" xs4>
         <v-card >
-          <Album 
+          <AlbumEdit
             :post = post
             :edit = true
-            ></Album>
+            ></AlbumEdit>
         </v-card>
       </v-flex> 
 
@@ -37,7 +37,7 @@
 import Banner from '~/components/Banner.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
-import Album from '~/components/Album.vue'
+import AlbumEdit from '~/components/Album.vue'
 import Description from '~/components/Description.vue'
 import store from '~/store/index.js'
 import Vuex from 'vuex'
@@ -45,7 +45,7 @@ import {mapState, mapGetters} from 'vuex'
 
 export default {
   components:{
-    Album,
+    AlbumEdit,
     Banner,
     Description,
     BannerBottom,

@@ -13,7 +13,7 @@ import axios from 'axios'
 
       // Nie mogę za bardzo ingerować w tą funkcję zamieniając to np w Array bo zwaracana jest alians funkcji ( albo wskaźnik do funkcji) a nie Object.
       getPost(id) {  
-        return  apiClient.get('/posts/' + id) 
+        return  apiClient('/posts?id=' + id) // PAMIĘTAJ o znaku zapytania !!
       },
 
       getPosts(perPage, page){
@@ -24,5 +24,6 @@ import axios from 'axios'
         //console.log("POst post")
         return apiClient.post('/posts',  post )       
       },
+      
       
     }

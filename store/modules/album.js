@@ -1,7 +1,15 @@
 import AlbumService from '@/services/AlbumService.js'
 
 export const state = {
-  posts: [],
+  posts: [{
+    id: 0,
+      gallery: '/sciezka/do/galeri/',
+      title: 'Tytuł testowy',
+      content: 'Opis',
+      imgUrl: 'BenNevis.jpg',
+      raport: 'opis długi',
+      image: null
+  }],
   pagination: {
     descending: true,
     page: 1,
@@ -19,6 +27,11 @@ export const mutations = {
     state.posts = posts
     this.state.pagination.page = page
   },
+  SET_POST(state, posts){
+    //console.log('SET_POST')
+    state.posts = posts
+    console.log('SET_POST -> posts: ', state.posts)
+  },
   GET_POST_PAGE(){
     return this.state.pagination.page 
   },
@@ -26,10 +39,27 @@ export const mutations = {
     //console.log('eventsTotal: ' , eventsTotal)
     this.state.pagination.totalItems = eventsTotal
   },
+  // GET_POSTS(){
+  //   this.state.posts = {
+  //     id: 0,
+  //     gallery: '/sciezka/do/galeri/',
+  //     title: 'Tytuł testowy',
+  //     content: 'Opis',
+  //     imgUrl: 'BenNevis.jpg',
+  //     raport: 'opis długi',
+  //     image: null
+  //   }
+  //   console.log('this.state.posts: ', this.state.posts)
+  //   return this.state.posts
+  // }
   
 }
 
 export const actions = {
+
+  // getPosts({commit}){
+  //   return commit('GET_POSTS')
+  // },
   
   createPost({ commit }, post) {
     console.log('Wartość posta: ', post)
@@ -60,6 +90,7 @@ export const actions = {
 
   fetchEvents({commit}, page){
     AlbumService.getPosts(this.state.pagination.perPage, page)
+    //AlbumService.getPost(page)
     .then(response => {
       commit(
         'SET_POSTS_TOTAL',
@@ -72,6 +103,23 @@ export const actions = {
     })
   },
 
+  fetchAlbum({ commit, getters }, id) {
+    var album = getters.getAlbumById(id)
+     if (album) {
+       commit('SET_POST', album)
+    } else {
+      AlbumService.getPost(id)
+        .then(response => {
+          console.log('getPost(id) Działa')
+
+          commit('SET_POST', response.data)
+        })
+        .catch(error => {
+          console.log('There was an error:', error.response)
+        })
+    }
+  },
+
   getPage({commit}){
     return commit('GET_POST_PAGE')
   }
@@ -79,14 +127,10 @@ export const actions = {
 }
 
 export const getters = {
-  getPostById: state => id => {
+  getAlbumById: state => id => {
     return state.posts.find(post => post.id === id)
   },
   pagin: state => {
     return state.pagination
   },
 }
-
-
-
-//export default store

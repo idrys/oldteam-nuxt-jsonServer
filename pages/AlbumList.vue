@@ -60,6 +60,7 @@ export default {
 
   created() {
     this.$store.dispatch('fetchEvents', 1)
+    
   },
   computed: {
     ... mapState(['albumModule']),

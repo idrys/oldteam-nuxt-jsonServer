@@ -40,20 +40,38 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
+
 export default {
+  props: ['id'],
+  created() {
+    //this.$store.dispatch('fetchEvent', this.id)
+    console.log('posts: ',this.post)
+  },
   props:{
     post: Object,
     edit: true,
   },
   methods:{
     editAlbum(){
-      console.log("Edit Album id: ", this.post.id)     
+
+      console.log("Edit Album id: ", this.post.id) 
+      //this.getAlbumById = this.post.id
     }
   },
+  computed: {
+    ... mapState(['albumModule']),
+    // ...mapGetters({
+    //     getPostById: state=> state.getters.getAlbumById
+    // }),
+  },
+
   data () {
     return {
      //edit: editProps
     }
   }
+
 }
 </script>

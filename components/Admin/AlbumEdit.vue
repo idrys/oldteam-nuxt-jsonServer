@@ -5,7 +5,10 @@
          <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="post.imgUrl" ></v-img> 
+         <v-img 
+            class="white--text elevation-3"  height="170px" 
+            :src="require('~/assets/img/' + post.imgUrl)" 
+          ></v-img> 
          <!-- :src="imgUrl" -->
         
         <v-flex xs12 align-end d-flex>
@@ -108,37 +111,55 @@
   </v-container>
 
 </template>
+
 <script>
-import AlbumService from '@/services/AlbumService.js'
+import { mapState, mapGetters } from 'vuex'
+
 
 export default {
-    created() {
-    AlbumService.getPosts()
-      .then(response => {
-        this.posts =  response.data 
-        // Jeśli ładuje tylko jeden element to:
-        //this.posts.push (response.data) 
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  },
   data: ()=>({
     file: '',
-    post: {
-      id: 0,
-      gallery: '/sciezka/do/galeri/',
-      title: 'Tytuł testowy',
-      content: 'Opis',
-      imgUrl: 'BenNevis.jpg',
-      raport: 'opis długi',
-      image: null
-    }
+    //post: []
+    // post: {
+    //   id: 0,
+    //   gallery: '/sciezka/do/galeri/',
+    //   title: 'Tytuł testowy',
+    //   content: 'Opis',
+    //   imgUrl: 'BenNevis.jpg',
+    //   raport: 'opis długi',
+    //   image: null
+    // }
   }),
-  methods: {
+
+
+  props:{
+    
+    post: Object
+  //   //edit: true,
+   },
+  methods:{
+    editAlbum(){
+      
+      //console.log("Edit Album id: ", this.post.id) 
+      //this.getAlbumById = this.post.id
+    }
+  },
+  computed: {
+    ... mapState(['albumModule'])
+    // ...mapGetters({
+      //     getPostById: state=> state.getters.getAlbumById
+    // }),
+  },
+
+  created() {
+    console.log('imgUrl: ', this.post )
+  },
+
+    methods: {
     sumit(){
       this.post.id = 14
       console.log('Title: ', this.post)
+      //console.log('test: ', this.albumModule.posts.imgUrl)
       this.$store.dispatch('createPost', this.post)
     },
     onPickFile(){
@@ -160,8 +181,7 @@ export default {
       this.post.image = files[0]
     }
   },
-  computed:{
-    
-  }
+
+
 }
 </script>
