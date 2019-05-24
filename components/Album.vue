@@ -47,7 +47,7 @@ export default {
   props: ['id'],
   created() {
     //this.$store.dispatch('fetchEvent', this.id)
-    console.log('posts: ',this.post)
+    //console.log('posts: ',this.post)
   },
   props:{
     post: Object,
@@ -57,6 +57,8 @@ export default {
     editAlbum(){
 
       console.log("Edit Album id: ", this.post.id) 
+      this.$router.push('/Admin/Album/' + this.post.id)
+ 
       //this.getAlbumById = this.post.id
     }
   },

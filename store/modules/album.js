@@ -30,7 +30,7 @@ export const mutations = {
   SET_POST(state, posts){
     //console.log('SET_POST')
     state.posts = posts
-    console.log('SET_POST -> posts: ', state.posts)
+    //console.log('SET_POST -> posts: ', state.posts)
   },
   GET_POST_PAGE(){
     return this.state.pagination.page 
@@ -39,30 +39,12 @@ export const mutations = {
     //console.log('eventsTotal: ' , eventsTotal)
     this.state.pagination.totalItems = eventsTotal
   },
-  // GET_POSTS(){
-  //   this.state.posts = {
-  //     id: 0,
-  //     gallery: '/sciezka/do/galeri/',
-  //     title: 'Tytuł testowy',
-  //     content: 'Opis',
-  //     imgUrl: 'BenNevis.jpg',
-  //     raport: 'opis długi',
-  //     image: null
-  //   }
-  //   console.log('this.state.posts: ', this.state.posts)
-  //   return this.state.posts
-  // }
-  
 }
 
 export const actions = {
 
-  // getPosts({commit}){
-  //   return commit('GET_POSTS')
-  // },
-  
   createPost({ commit }, post) {
-    console.log('Wartość posta: ', post)
+    //console.log('Wartość posta: ', post)
     return AlbumService.Post(post)
         .then(() => {
           commit('ADD_POST', post)
@@ -90,7 +72,6 @@ export const actions = {
 
   fetchEvents({commit}, page){
     AlbumService.getPosts(this.state.pagination.perPage, page)
-    //AlbumService.getPost(page)
     .then(response => {
       commit(
         'SET_POSTS_TOTAL',
@@ -110,8 +91,6 @@ export const actions = {
     } else {
       AlbumService.getPost(id)
         .then(response => {
-          console.log('getPost(id) Działa')
-
           commit('SET_POST', response.data)
         })
         .catch(error => {
@@ -120,9 +99,9 @@ export const actions = {
     }
   },
 
-  getPage({commit}){
-    return commit('GET_POST_PAGE')
-  }
+  // getPage({commit}){
+  //   return commit('GET_POST_PAGE')
+  // }
 
 }
 
