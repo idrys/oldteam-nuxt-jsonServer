@@ -25,5 +25,18 @@ import axios from 'axios'
         return apiClient.post('/posts',  post )       
       },
       
+      delete(id){
+        // return jest niezbędny bo przekazuję alians do funkcji
+        // dzięki temu mogę wykorzystywać .then i .cache
+        return apiClient.delete('/posts/' + id)  
+      },
+
+      update(post){
+        // return jest niezbędny bo przekazuję alians do funkcji
+        // dzięki temu mogę wykorzystywać .then i .cache
+        //console.log('post: ', post.title)
+
+        return apiClient.put('/posts/' + post.id, post)
+      }
       
     }

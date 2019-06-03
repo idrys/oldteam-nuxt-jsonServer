@@ -89,7 +89,7 @@ export default {
       set: function (value) {
         this.$data.page = value
         this.$store.dispatch('fetchEvents', value)
-        this.$vuetify.goTo(600)
+        this.$vuetify.goTo(600) // przsunięcie strony po wybranu następnej
       }
     },
 

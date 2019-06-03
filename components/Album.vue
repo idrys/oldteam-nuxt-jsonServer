@@ -17,7 +17,7 @@
     </div>
     <div  v-show="edit"> 
       <v-btn
-        @click="editAlbum"
+        @click="deleteAlbum"
         color="red" 
         fab 
         small 
@@ -69,11 +69,13 @@ export default {
   },
   methods:{
     editAlbum(){
-
-      console.log("Edit Album id: ", this.post.id) 
+      //console.log("Edit Album id: ", this.post.id) 
       this.$router.push('/Admin/Album/' + this.post.id)
- 
-      //this.getAlbumById = this.post.id
+    },
+    deleteAlbum(){
+      //console.log("Delete Album id: ", this.post.id) 
+      this.$store.dispatch('deleteAlbum', this.post.id)
+      
     }
   },
   computed: {

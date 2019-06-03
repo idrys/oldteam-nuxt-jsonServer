@@ -39,6 +39,15 @@ export const mutations = {
     //console.log('eventsTotal: ' , eventsTotal)
     this.state.pagination.totalItems = eventsTotal
   },
+  DELETE_POST(state, id){
+    //console.log('id=',id)
+    var newArray = state.posts.filter(function(el){
+      return el.id == id
+    })
+    state.posts.splice(newArray, 1);
+    //console.log(newArray)
+    //this.state.posts
+  }
 }
 
 export const actions = {
@@ -98,6 +107,30 @@ export const actions = {
         })
     }
   },
+
+  deleteAlbum({ commit, getters }, id) {  
+    AlbumService.delete(id)
+    .then(response => {
+      commit('DELETE_POST', response.data)
+    })
+    .catch(error => {
+      console.log('There was an error:', error.response)
+    })
+  },
+
+  updateAlbum({commit, getters}, post) {
+    console.log('id= ' + post.id)
+    // console.log('post: ', post.title)
+    AlbumService.update(post)
+    // .then(response => {
+    //   commit('UPDATE_POST', response.data)
+    // })
+    // .catch(error => {
+    //   console.log('There was an error:', error.response)
+    // })
+  },
+
+
 
   // getPage({commit}){
   //   return commit('GET_POST_PAGE')

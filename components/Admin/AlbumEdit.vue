@@ -131,12 +131,10 @@ export default {
     // }
   }),
 
-
   props:{
-    
     post: Object
-  //   //edit: true,
-   },
+  },
+
   methods:{
     editAlbum(){
       
@@ -155,33 +153,32 @@ export default {
     console.log('imgUrl: ', this.post )
   },
 
-    methods: {
+  methods: {
+
     sumit(){
       this.post.id = 14
       console.log('Title: ', this.post)
-      //console.log('test: ', this.albumModule.posts.imgUrl)
-      this.$store.dispatch('createPost', this.post)
+      this.$store.dispatch('updateAlbum',this.post)
     },
+
     onPickFile(){
       this.$refs.fileInput.click()
     },
-    onFilePicked(events){
+
+    onFilePicked(events){ // https://www.youtube.com/watch?v=J2Wp4_XRsWc 9:00
       const files = events.target.files
       let filename = files[0].filename
       this.post.imgUrl = files[0].name
       console.log('files[0].filename: ', files[0].name )
-      
-      // https://www.youtube.com/watch?v=J2Wp4_XRsWc 9:00
       const fileReader = new FileReader()
       fileReader.addEventListener('load', ()=>{
-
         this.post.imgUrl = fileReader.result
       })
       fileReader.readAsDataURL(files[0])
       this.post.image = files[0]
     }
-  },
 
+  },
 
 }
 </script>
