@@ -39,9 +39,8 @@ import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
 import Album from '~/components/Album.vue'
 import Description from '~/components/Description.vue'
-import store from '~/store/index.js'
-import Vuex from 'vuex'
-import {mapState, mapGetters} from 'vuex'
+
+import {mapState, mapGetters, mapActions} from 'vuex'
 
 export default {
   components:{
@@ -59,16 +58,25 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('fetchEvents', 1)
+    this.$store.dispatch('albumModule/fetchEvents', 1)
     
   },
   computed: {
-    ... mapState(['albumModule']),
-    ...mapGetters(['pagin'] ) ,
+    ...mapState(['albumModule']),
+    //...mapActions(['notification']),
+    ...mapGetters({
+      pagin: 'albumModule/pagin'
+     } ) ,
 
     // Ile stron =  wszystkie karty / ilość kart na stronie
     pages () {
-      return  Math.ceil( this.$store.getters.pagin.totalItems/this.$store.getters.pagin.perPage ) 
+      const notifi = {
+        type: 'ok',
+        massege: 'fetchEvents({commit, dispatch}, page) - Udało się załadować stronę z albumami'
+      }
+      //this.$store.dispatch('notification/add', notifi)
+      //console.log( this.$store._mutations )
+      return  Math.ceil(this.pagin.totalItems/this.pagin.perPage ) 
     },
 
 
@@ -78,7 +86,7 @@ export default {
       },
       set: function (value) {
         this.$data.page = value
-        this.$store.dispatch('fetchEvents', value)
+        this.$store.dispatch('albumModule/fetchEvents', value)
         this.$vuetify.goTo(600)
       }
     },

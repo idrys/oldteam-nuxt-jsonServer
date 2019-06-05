@@ -141,8 +141,15 @@ export default {
   methods: {
     sumit(){
       this.post.id = 14
-      console.log('Title: ', this.post)
+      //console.log('Title: ', this.post)
       this.$store.dispatch('createPost', this.post)
+      this.$router.push('/Admin/AlbumEditList/')
+    },
+    cancel(){
+      this.$router.push('/Admin/AlbumEditList/')
+    },
+    reset(){
+
     },
     onPickFile(){
       this.$refs.fileInput.click()

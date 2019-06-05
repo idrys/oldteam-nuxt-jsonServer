@@ -159,6 +159,7 @@ export default {
       this.post.id = 14
       console.log('Title: ', this.post)
       this.$store.dispatch('updateAlbum',this.post)
+      this.$router.push('/Admin/AlbumEditList/')
     },
 
     onPickFile(){
