@@ -38,13 +38,13 @@ export default {
     
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['getPostById'] ) ,
-    test(){
-      price = 20
-      console.log('Wartość przed:' ) // => 10
-      replay()
-      console.log('Wartość po: ' + total) // => 40
-    }
+    //...mapGetters(['getPostById'] ) ,
+    // test(){
+    //   price = 20
+    //   console.log('Wartość przed:' ) // => 10
+    //   replay()
+    //   console.log('Wartość po: ' + total) // => 40
+    // }
 },
   components: {
     Banner,

@@ -50,8 +50,8 @@ import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
 import AlbumEdit from '~/components/Album.vue'
 import Description from '~/components/Description.vue'
-import store from '~/store/index.js'
-import Vuex from 'vuex'
+//import store from '~/store/index.js'
+//import Vuex from 'vuex'
 import {mapState, mapGetters} from 'vuex'
 
 export default {
@@ -70,15 +70,17 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('fetchEvents', 1)
+    this.$store.dispatch('albumModule/fetchEvents', 1)
   },
   computed: {
     ... mapState(['albumModule', 'userModule']),
-    ...mapGetters(['pagin'] ) ,
+    ...mapGetters({
+      pagin: 'albumModule/pagin'
+     } ) ,
 
     // Ile stron =  wszystkie karty / ilość kart na stronie
     pages () {
-      return  Math.ceil( this.$store.getters.pagin.totalItems/this.$store.getters.pagin.perPage ) 
+      return  Math.ceil( this.pagin.totalItems/this.pagin.perPage ) 
     },
 
 
@@ -88,7 +90,7 @@ export default {
       },
       set: function (value) {
         this.$data.page = value
-        this.$store.dispatch('fetchEvents', value)
+        this.$store.dispatch('albumModule/fetchEvents', value)
         this.$vuetify.goTo(600) // przsunięcie strony po wybranu następnej
       }
     },

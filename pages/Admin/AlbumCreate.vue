@@ -142,7 +142,7 @@ export default {
     sumit(){
       this.post.id = 14
       //console.log('Title: ', this.post)
-      this.$store.dispatch('createPost', this.post)
+      this.$store.dispatch('albumModule/createPost', this.post)
       this.$router.push('/Admin/AlbumEditList/')
     },
     cancel(){
@@ -170,8 +170,6 @@ export default {
       this.post.image = files[0]
     }
   },
-  computed: mapState({
-    //post: state=> state.albumModule.post
-  })
+  computed: mapState(['albumModule'])
 }
 </script>

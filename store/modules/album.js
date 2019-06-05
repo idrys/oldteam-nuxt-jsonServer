@@ -57,18 +57,27 @@ export const actions = {
 
 
   createPost({ commit, dispatch }, post) {
-    //console.log('Wartość posta: ', post)
+    console.log('Wartość posta: ', post)
     return AlbumService.Post(post)
         .then(() => {
+
+          console.log("SUKCES")
           commit('ADD_POST', post)
+          const notification = {
+            type: 'sukces',
+            massege: 'Twój album został właśnie utworzony.'
+          }
+          dispatch('notification/add', notification, {root: true})
         })
         .catch(error => {
-          console.log('There was an error:', error.response)
+          console.log('Błąd: There was an error:', error)
           const notification = {
-            type: 'error',
-            massege: 'Wystąpił problem z tworzeniem nowego Albumu. ' +  error.response
+            type: 'błąd',
+            massege: 'Wystąpił problem z tworzeniem nowego Albumu. ' +  error
           }
-          //dispatch('notification/add', notification, {root: true})
+          dispatch('notification/add', notification, {root: true})
+          console.log("PORAŻKA")
+          throw error
         })
   },
 
@@ -111,7 +120,7 @@ export const actions = {
         type: 'ok',
         massege: 'fetchEvents({commit, dispatch}, page) - Udało się załadować stronę z albumami'
       }
-      dispatch('notification/add', notification, {root: true})
+      //dispatch('notification/add', notification, {root: true})
       
     })
     .catch(error => {

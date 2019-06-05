@@ -17,7 +17,7 @@ import {mapState, mapGetters} from 'vuex'
 export default {
 
   created() {
-    this.$store.dispatch('fetchAlbum', this.$route.params.id)
+    this.$store.dispatch('albumModule/fetchAlbum', this.$route.params.id)
    },
 
   components:{

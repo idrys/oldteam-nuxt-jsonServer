@@ -28,9 +28,9 @@ const store = () => new Vuex.Store({
   },
 
   method: {
-    test(){
-      dispatch('notification/add', notification, {root: true})
-    }
+    // test(){
+    //   dispatch('notification/add', notification, {root: true})
+    // }
   }
 
 })
