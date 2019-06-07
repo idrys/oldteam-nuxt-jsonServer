@@ -1,38 +1,13 @@
 <template>
   <div>
-    <div v-show="edit">
-
-      <v-btn
-        @click="editAlbum"
-        color="green" 
-        fab 
-        small 
-        dark
-        absolute
-        
-        right>
-        <v-icon>edit</v-icon>
-      </v-btn>
-      
-    </div>
-    <div  v-show="edit"> 
-      <v-btn
-        @click="deleteAlbum"
-        color="red" 
-        fab 
-        small 
-        dark
-        absolute
-        
-        left>
-        <v-icon>delete</v-icon>
-      </v-btn>
-    </div>
-    
     <v-card class="elevation-10 transparent">
-
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="require('~/assets/img/' + post.imgUrl)" ></v-img> 
+         <v-img class="white--text elevation-3"  height="170px" :src="require('~/assets/img/' + post.imgUrl)" >
+          <v-layout justify-space-between row v-show="edit" >
+            <v-btn fab small dark @click="deleteAlbum" color="red"> <v-icon>delete</v-icon></v-btn>
+            <v-btn fab small dark @click="editAlbum" color="green"> <v-icon>edit</v-icon></v-btn>
+          </v-layout>
+         </v-img> 
          <!-- :src="imgUrl" -->
         
         <v-flex xs12 align-end d-flex>
@@ -45,11 +20,9 @@
             <v-btn color="warning"  v-show="post.opis" @click="opis=opis">Opis</v-btn>
             <v-spacer></v-spacer>
             <v-btn flat class="blue--text" v-bind:href="post.gallery">Zobacz więcej</v-btn>
-            <!-- <v-btn @click="Test">Test</v-btn> -->
         </v-card-actions>
 
     </v-card>
-
   </div>
 </template>
 
@@ -75,7 +48,7 @@ export default {
     deleteAlbum(){
       //console.log("Delete Album id: ", this.post.id) 
       this.$store.dispatch('albumModule/deleteAlbum', this.post.id)
-      
+      //this.$router.push('/Admin/Album/' + this.post.id)
     }
   },
   computed: {

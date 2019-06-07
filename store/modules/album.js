@@ -17,7 +17,7 @@ export const state = {
     descending: true,
     page: 1,
     perPage: 9,
-    totalItems: 10,
+    totalItems: 11,
     rowsPerPageItems: [1, 2, 4, 8, 16]
   }
 }
@@ -38,18 +38,16 @@ export const mutations = {
   GET_POST_PAGE(){
     return this.state.pagination.page 
   },
-  SET_POSTS_TOTAL(tate, eventsTotal){
-    //console.log('eventsTotal: ' , eventsTotal)
-    this.state.pagination.totalItems = eventsTotal
+  SET_POSTS_TOTAL(state, eventsTotal){
+    console.log('eventsTotal: ' , eventsTotal)
+    state.pagination.totalItems = eventsTotal
+    //console.log('state.pagination.totalItems: ' , state.pagination.totalItems)
   },
   DELETE_POST(state, id){
-    //console.log('id=',id)
     var newArray = state.posts.filter(function(el){
       return el.id == id
     })
     state.posts.splice(newArray, 1);
-    //console.log(newArray)
-    //this.state.posts
   }
 }
 
@@ -60,19 +58,19 @@ export const actions = {
     console.log('Wartość posta: ', post)
     return AlbumService.Post(post)
         .then(() => {
-
-          console.log("SUKCES")
+          //console.log("SUKCES")
           commit('ADD_POST', post)
           const notification = {
-            type: 'sukces',
+            type: 'success',
             massege: 'Twój album został właśnie utworzony.'
           }
           dispatch('notification/add', notification, {root: true})
+          //this.$router.push('/Admin/AlbumEditList/')
         })
         .catch(error => {
           console.log('Błąd: There was an error:', error)
           const notification = {
-            type: 'błąd',
+            type: 'error',
             massege: 'Wystąpił problem z tworzeniem nowego Albumu. ' +  error
           }
           dispatch('notification/add', notification, {root: true})
@@ -92,7 +90,7 @@ export const actions = {
         //console.log('PAge: ', page)
         //commit('SET_POST_PAGE', page)
         const notification = {
-          type: 'ok',
+          type: 'success',
           massege: '({ commit, dispatch }, { perPage, page }) - Udało się załadować stronę z albumami'
         }
         //dispatch('notification/add', notification, {root: true})
@@ -108,20 +106,18 @@ export const actions = {
       })
   },
 
+
   fetchEvents({commit, dispatch }, page){
-    AlbumService.getPosts(this.state.pagination.perPage, page)
+    AlbumService.getPosts(state.pagination.perPage, page)
     .then(response => {
+
+      //console.log('perPage: ', state.pagination.perPage)
       commit(
         'SET_POSTS_TOTAL',
         parseInt(response.headers['x-total-count'])
       )
       commit('SET_POST', response.data, page)
-      const notification = {
-        type: 'ok',
-        massege: 'fetchEvents({commit, dispatch}, page) - Udało się załadować stronę z albumami'
-      }
-      //dispatch('notification/add', notification, {root: true})
-      
+    
     })
     .catch(error => {
       console.log('There was an error:', error.response)
@@ -129,7 +125,7 @@ export const actions = {
         type: 'error',
         massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
       }
-      //dispatch('notification/add', notification, {root: true})
+      dispatch('notification/add', notification, {root: true})
     })
   },
 
@@ -148,7 +144,7 @@ export const actions = {
             type: 'error',
             massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
           }
-          //dispatch('notification/add', notification, {root: true})
+          dispatch('notification/add', notification, {root: true})
         })
     }
   },
@@ -157,16 +153,25 @@ export const actions = {
     AlbumService.delete(id)
     .then(response => {
       commit('DELETE_POST', response.data)
+      dispatch('fetchEvents', 1 )
+
+      const notification = {
+        type: 'sucess',
+        massege: 'Album został usunięty.',
+      }
+      dispatch('notification/add', notification, {root: true})
     })
     .catch(error => {
-      console.log('There was an error:', error.response)
+      console.log('There was an error:', error)
       const notification = {
         type: 'error',
-        massege: 'Wystąpił problem z usuwaniem Albumu. ' +  error.response
+        massege: 'Wystąpił problem z usuwaniem Albumu. ' +  error.response,
+
       }
-      //dispatch('notification/add', notification, {root: true})
+      dispatch('notification/add', notification, {root: true})
     })
   },
+  
 
   updateAlbum({commit, getters}, post) {
     //console.log('id= ' + post.id)

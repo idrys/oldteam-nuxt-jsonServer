@@ -1,12 +1,15 @@
 <template>
 <div>
 
-  <AlbumList></AlbumList>
+  <!-- <NotificationContainer/> -->
 
+
+  <AlbumList></AlbumList>
 </div>
 </template>
 
 <script>
+//import NotificationContainer from '@/components/NotificationContainer'
 import AlbumList from './AlbumList.vue'
 import Banner from '~/components/Banner.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
@@ -47,6 +50,7 @@ export default {
     // }
 },
   components: {
+    //NotificationContainer,
     Banner,
     AlbumList,
     BannerBottom,

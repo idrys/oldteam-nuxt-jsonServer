@@ -1,6 +1,6 @@
 <template>
   <v-app >
-    <v-card flat true>
+    <v-card flat app>
       <v-container fluid>
         <v-layout row child-flex wrap>
           <v-toolbar absolute >
@@ -14,8 +14,13 @@
         </v-layout>
       </v-container>
     </v-card>
+    
+    <!-- Elementy będą znajdować się pod  -->
 
     <nuxt/>
+
+        <!-- Elementy będą znajdować się nad  -->
+
 
           <v-footer class="blue darken-2">
         <v-layout row wrap align-center>
@@ -32,7 +37,14 @@
 </template>
 
 <script>
+import NotificationBar from '@/components/NotificationBar'
+import NotificationContainer from '@/components/NotificationContainer'
+
 export default {
+  components: {
+    NotificationBar,
+    NotificationContainer,
+  },
   data() {
     return {
       logo: require('@/assets/img/logo.png'),

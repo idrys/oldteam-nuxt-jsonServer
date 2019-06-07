@@ -17,7 +17,9 @@ import axios from 'axios'
       },
 
       getPosts(perPage, page){
-        return apiClient('/posts?_limit=' + perPage + '&_page=' + page)
+        //return apiClient('/posts?_limit=' + perPage + '&_page=' + page)
+        return apiClient('posts?_sort=id&_order=desc' + '&_limit=' + perPage + '&_page=' + page)
+        ///posts?_sort=id&_order=desc
       },
 
       Post(post){

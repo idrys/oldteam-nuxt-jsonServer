@@ -115,51 +115,26 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 
-
 export default {
   data: ()=>({
     file: '',
-    //post: []
-    // post: {
-    //   id: 0,
-    //   gallery: '/sciezka/do/galeri/',
-    //   title: 'Tytuł testowy',
-    //   content: 'Opis',
-    //   imgUrl: 'BenNevis.jpg',
-    //   raport: 'opis długi',
-    //   image: null
-    // }
   }),
 
   props:{
     post: Object
   },
 
-  methods:{
-    editAlbum(){
-      
-      //console.log("Edit Album id: ", this.post.id) 
-      //this.getAlbumById = this.post.id
-    }
-  },
   computed: {
     ... mapState(['albumModule'])
-    // ...mapGetters({
-      //     getPostById: state=> state.getters.getAlbumById
-    // }),
-  },
-
-  created() {
-    console.log('imgUrl: ', this.post )
   },
 
   methods: {
 
     sumit(){
-      this.post.id = 14
+      console.log(new Date().valueOf())
+      //this.post.id = 15 //+ '_' + Math.random().toString(36).substr(2, 9);
       console.log('Title: ', this.post)
       this.$store.dispatch('updateAlbum',this.post)
-      this.$router.push('/Admin/AlbumEditList/')
     },
 
     onPickFile(){

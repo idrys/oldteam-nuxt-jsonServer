@@ -19,18 +19,12 @@ const store = () => new Vuex.Store({
   state: {
     posts: [],
     pagination: {
-      descending: true,
-      page: 1,
-      perPage: 9,
-      totalItems: 10,
-      rowsPerPageItems: [1, 2, 4, 8, 16]
+      //descending: true,
+      //page: 1,
+      //perPage: 9,
+      //totalItems: 10,
+      //rowsPerPageItems: [1, 2, 4, 8, 16]
     }
-  },
-
-  method: {
-    // test(){
-    //   dispatch('notification/add', notification, {root: true})
-    // }
   }
 
 })

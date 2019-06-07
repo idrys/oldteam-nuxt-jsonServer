@@ -140,7 +140,7 @@ export default {
   }),
   methods: {
     sumit(){
-      this.post.id = 14
+      this.post.id = new Date().valueOf();
       //console.log('Title: ', this.post)
       this.$store.dispatch('albumModule/createPost', this.post)
       this.$router.push('/Admin/AlbumEditList/')

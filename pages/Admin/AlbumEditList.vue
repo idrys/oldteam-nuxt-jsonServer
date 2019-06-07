@@ -13,6 +13,7 @@
       </v-btn>     
     </div>
   <br>
+  <!-- <v-alert :value="true" type="error">This is a info alert.</v-alert> -->
   <br>
   <br>
   <h1>Albumy edytuje: {{ userModule.user.name }}</h1>
@@ -30,6 +31,8 @@
     </v-layout>
   </v-container>
 
+  <!-- <NotificationContainer></NotificationContainer> -->
+  <NotificationContainer></NotificationContainer>
   <v-container text-xs-center>
          <v-layout align-center justify-center row fill-height>
           <v-pagination
@@ -45,6 +48,7 @@
 
 
 <script>
+import NotificationContainer from '@/components/NotificationContainer'
 import Banner from '~/components/Banner.vue'
 import BannerBottom from '~/components/BannerBottom.vue'
 import About from '~/components/About.vue'
@@ -55,7 +59,9 @@ import Description from '~/components/Description.vue'
 import {mapState, mapGetters} from 'vuex'
 
 export default {
+
   components:{
+    NotificationContainer,
     AlbumEdit,
     Banner,
     Description,
@@ -80,6 +86,9 @@ export default {
 
     // Ile stron =  wszystkie karty / ilość kart na stronie
     pages () {
+      console.log('totalItems: ' +  this.pagin.totalItems)
+      console.log('perPage: ' + this.pagin.perPage)
+      //console.log( 'pages: ' +   Math.ceil(20/9))
       return  Math.ceil( this.pagin.totalItems/this.pagin.perPage ) 
     },
 
