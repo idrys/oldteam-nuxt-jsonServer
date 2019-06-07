@@ -82,7 +82,10 @@
 
               
         <v-card-actions>
-          <v-btn flat>Anuluj</v-btn>
+          <v-btn
+            @click="cancel" 
+            flat
+          >Anuluj</v-btn>
           <v-spacer></v-spacer>
           <v-slide-x-reverse-transition>
             <v-tooltip
@@ -93,7 +96,7 @@
                 <v-btn
                   icon
                   class="my-0"
-                  
+                  @click="refresh"
                   v-on="on"
                 >
                   <v-icon>refresh</v-icon>
@@ -131,10 +134,25 @@ export default {
   methods: {
 
     sumit(){
-      console.log(new Date().valueOf())
+      //console.log(new Date().valueOf())
       //this.post.id = 15 //+ '_' + Math.random().toString(36).substr(2, 9);
-      console.log('Title: ', this.post)
-      this.$store.dispatch('updateAlbum',this.post)
+      //console.log('Title: ', this.post)
+      this.$store.dispatch('albumModule/updateAlbum',this.post)
+    },
+
+    cancel(){
+      console.log('Cancel')
+      this.$router.push('/Admin/AlbumEditList/')
+    },
+
+    refresh(){
+
+      this.post.gallery = "",
+      this.post.content = "",
+      //this.post.imgUrl = "",
+      this.post.raport = "",
+      this.post.image = "",
+      this.post.title = ""
     },
 
     onPickFile(){

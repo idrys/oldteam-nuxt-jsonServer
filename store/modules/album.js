@@ -173,16 +173,27 @@ export const actions = {
   },
   
 
-  updateAlbum({commit, getters}, post) {
-    //console.log('id= ' + post.id)
-    // console.log('post: ', post.title)
+  updateAlbum({commit, getters, dispatch}, post) {
+    console.log('id= ' + post.id)
+     console.log('post: ', post.title)
     AlbumService.update(post)
-    // .then(response => {
-    //   commit('UPDATE_POST', response.data)
-    // })
-    // .catch(error => {
-    //   console.log('There was an error:', error.response)
-    // })
+     .then(response => {
+       //commit('  SET_POST', response.data)
+       const notification = {
+        type: 'success',
+        massege: 'Twój album został zaktualizowany.'
+      }
+      dispatch('notification/add', notification, {root: true})
+      this.$router.push('/Admin/AlbumEditList/')
+     })
+     .catch(error => {
+       console.log('There was an error:', error.response)
+       const notification = {
+        type: 'success',
+        massege: 'Wystąpił problem z aktualizacją alubumu. ' + error.response
+      }
+      dispatch('notification/add', notification, {root: true})
+     })
   },
 
 }

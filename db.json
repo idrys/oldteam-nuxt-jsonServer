@@ -1,22 +1,6 @@
 {
   "posts": [
     {
-      "id": 13,
-      "title": "2019 Wyspy Owcze",
-      "opis": "",
-      "content": "Slættaratindur 880 m n.p.m.",
-      "imgUrl": "Slettaratindur.jpg",
-      "gallery": "https://photos.google.com/share/AF1QipMu-LjTUbziBzFX0H6Yjk9G7VU_vy53jM6IHz0_LvFKFZKRo-1suBcL80ZOqI1Z7g?key=SnFnemI4OTdGSDVNcmVXeEQxNWdiaEQ0SDFvYTNB"
-    },
-    {
-      "id": 12,
-      "title": "2018 Macedonia",
-      "opis": "Macedonia",
-      "content": "Szczyt 2769 m n.p.m.",
-      "imgUrl": "hero.jpeg",
-      "gallery": "https://photos.google.com/share/AF1QipMu-LjTUbziBzFX0H6Yjk9G7VU_vy53jM6IHz0_LvFKFZKRo-1suBcL80ZOqI1Z7g?key=SnFnemI4OTdGSDVNcmVXeEQxNWdiaEQ0SDFvYTNB"
-    },
-    {
       "id": 11,
       "title": "2017 Ukraina",
       "opis": "Ukraina",
@@ -95,43 +79,7 @@
       "gallery": "https://photos.google.com/share/AF1QipMj6dYRRbHIoJRUYxgY25GXDAhLKw1Oxc-KpkXDGJvCzlpNQMZVcdZrAGk_I6m4Pw?key=SmhVMmRIUGl2UlZuNm9tRENuY0U4Tjg1a0xOQlBn"
     },
     {
-      "id": 1559881922433,
-      "gallery": "/sciezka/do/galeri/",
-      "title": "Tytuł testowy",
-      "content": "Opis",
-      "imgUrl": "BenNevis.jpg",
-      "raport": "opis długi",
-      "image": null
-    },
-    {
-      "id": 1559881929608,
-      "gallery": "/sciezka/do/galeri/",
-      "title": "Tytuł testowy",
-      "content": "Opis",
-      "imgUrl": "BenNevis.jpg",
-      "raport": "opis długi",
-      "image": null
-    },
-    {
-      "id": 1559882224984,
-      "gallery": "/sciezka/do/galeri/",
-      "title": "Tytuł testowy",
-      "content": "Opis",
-      "imgUrl": "BenNevis.jpg",
-      "raport": "opis długi",
-      "image": null
-    },
-    {
-      "id": 1559882708040,
-      "gallery": "/sciezka/do/galeri/",
-      "title": "Tytuł testowy",
-      "content": "Opis",
-      "imgUrl": "BenNevis.jpg",
-      "raport": "opis długi",
-      "image": null
-    },
-    {
-      "id": 1559882711093,
+      "id": 1559887593883,
       "gallery": "/sciezka/do/galeri/",
       "title": "Tytuł testowy",
       "content": "Opis",
