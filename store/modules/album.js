@@ -102,7 +102,7 @@ export const actions = {
           type: 'error',
           massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
         }
-        //dispatch('notification/add', notification, {root: true})
+        dispatch('notification/add', notification, {root: true})
       })
   },
 
@@ -156,7 +156,7 @@ export const actions = {
       dispatch('fetchEvents', 1 )
 
       const notification = {
-        type: 'sucess',
+        type: 'success',
         massege: 'Album został usunięty.',
       }
       dispatch('notification/add', notification, {root: true})

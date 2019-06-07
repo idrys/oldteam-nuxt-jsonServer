@@ -3,16 +3,16 @@
 <div>
   <div class="notification-bar" :class="notificationTypeClass">
     <v-alert
+      :type="notification.type"
       :color="alertColor"
       v-model="alert"
       :value="true"
       elevation=20
       dismissible
       absolute
-      dark
+      icon="check_circle"
     >
     <div>
-      <v-icon dark left>error</v-icon>
       {{notification.massege}}
     </div>
 
@@ -43,11 +43,27 @@ export default {
     //clearTimeout(this.timeout)
   //},
   created(){
-    //colorsChange() 
-    //console.log('this: ' + this.methods)
+    this.colorsChange() 
   },
-  methods: mapActions('notification', ['remove']),
-
+  methods: {
+    ...mapActions('notification', ['remove']),
+    colorsChange(){
+      console.log(' this.notification.type: ',  this.notification.type)
+      if ( this.notification.type == 'success' ){
+        this.alertColor =  'rgb(0, 128, 0, 0.9)'
+      }
+      if ( this.notification.type == 'error' ){
+        this.alertColor =  'rgb(255, 0, 0, 0.9)'
+      }
+      if ( this.notification.type == 'info' ){
+        this.alertColor =  'rgb(0, 0, 255, 0.9)'
+      }
+      if ( this.notification.type == 'warning' ){
+        this.alertColor =  'rgb(255, 165, 0, 0.9)'
+      }
+  console.log('color: ', this.alertColor)
+    }
+},
   data () {
       return {
         alert: true,
@@ -60,8 +76,8 @@ export default {
     notificationTypeClass(){
       return '-text-${this.notification.type}'
     },
-  }
-  // methods:{
+  },
+  //methods:{
   //   colorsChange(){
   //     console.log('test colorsChange')
       // if ( this.notification.type == 'succes' ){
