@@ -18,7 +18,8 @@ export const state = {
     page: 1,
     perPage: 9,
     totalItems: 11,
-    rowsPerPageItems: [1, 2, 4, 8, 16]
+    rowsPerPageItems: [1, 2, 4, 8, 16],
+
   }
 }
 
@@ -80,6 +81,7 @@ export const actions = {
   },
 
   fetchEvents({ commit, dispatch }, { perPage, page }) {
+    console.log('fetchEvents2')
     AlbumService.getPosts(perPage, page)
       .then(response => {
         commit(
@@ -107,7 +109,8 @@ export const actions = {
   },
 
 
-  fetchEvents({commit, dispatch }, page){
+  fetchEvents({commit, dispatch, getters}, page){
+    console.log("fetchEvents: ",state.pagination)
     AlbumService.getPosts(state.pagination.perPage, page)
     .then(response => {
 
@@ -203,7 +206,8 @@ export const getters = {
     return state.posts.find(post => post.id === id)
   },
   pagin: state => {
-    //console.log(state)
+    console.log('pagin: ',  state.pagination)
+
     return state.pagination
   },
 }

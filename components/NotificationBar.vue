@@ -11,6 +11,7 @@
       dismissible
       absolute
       icon="check_circle"
+      
     >
     <div>
       {{notification.massege}}

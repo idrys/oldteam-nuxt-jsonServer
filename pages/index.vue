@@ -41,6 +41,9 @@ export default {
     
   computed: {
     ...mapState(['user']),
+    ...mapGetters({
+      pagin: 'albumModule/pagin'
+     } ) 
     //...mapGetters(['getPostById'] ) ,
     // test(){
     //   price = 20
@@ -64,6 +67,28 @@ export default {
       //title: "Test"
     }
     
+  },
+  
+  beforeDestroy () {
+    console.log('beforeDestroy')
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
+  },
+
+  mounted () {
+    this.onResize()
+  },
+
+  methods: {
+    onResize () {
+      console.log('Resize')
+      if (this.$vuetify.breakpoint.xl){
+        //console.log("PerPage: ", this.pagin.perPage)
+        this.pagin.perPage = 12
+        console.log("New PerPage: ", this.pagin.perPage)
+      }
+    }
   }
 }
 </script>
