@@ -5,6 +5,7 @@
 
    <v-container grid-list-xl text-xs-center>
     <v-layout row wrap v-resize="onResize">
+      <!-- v-resize="onResize" -->
       <v-flex v-for="post in albumModule.posts" :key="post.id" :post="post" xs12 sm6 md4 xl3 lg4   >
         <v-card >
           <Album 
@@ -71,13 +72,6 @@ export default {
 
     // Ile stron =  wszystkie karty / ilość kart na stronie
     pages () {
-      const notifi = {
-        type: 'ok',
-        massege: 'fetchEvents({commit, dispatch}, page) - Udało się załadować stronę z albumami'
-      }
-      //this.$store.dispatch('notification/add', notifi)
-     
-      console.log( "PerPage AlbumList: ", this.pagin.perPage )
       return  Math.ceil(this.pagin.totalItems/this.pagin.perPage ) 
     },
 
@@ -105,7 +99,7 @@ export default {
       if (this.$vuetify.breakpoint.xl){
         this.pagin.perPage = 12
         console.log("New PerPage: ", this.pagin) // Nie rozumiem czemu nie zmienia się wartość PerPage
-        this.$store.dispatch('albumModule/fetchEvents', 1)
+        //this.$store.dispatch('albumModule/fetchEvents', 1)
       }
       else{
         this.pagin.perPage = 9

@@ -81,7 +81,7 @@ export const actions = {
   },
 
   fetchEvents({ commit, dispatch }, { perPage, page }) {
-    console.log('fetchEvents2')
+    //console.log('fetchEvents2')
     AlbumService.getPosts(perPage, page)
       .then(response => {
         commit(
@@ -114,10 +114,11 @@ export const actions = {
     AlbumService.getPosts(state.pagination.perPage, page)
     .then(response => {
 
-      //console.log('perPage: ', state.pagination.perPage)
+      //console.log('posts: ', response.data.length)
       commit(
-        'SET_POSTS_TOTAL',
-        parseInt(response.headers['x-total-count'])
+        'SET_POSTS_TOTAL', response.data.length
+        //parseInt(response.headers['x-total-count'])
+        
       )
       commit('SET_POST', response.data, page)
     

@@ -52,8 +52,16 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/api': {
+      target: 'http://127.0.0.1:8000',
+      pathRewrite: {
+        '^/api' : '/'
+        }
+      }
+  },
   /*
   ** Axios module configuration
   */

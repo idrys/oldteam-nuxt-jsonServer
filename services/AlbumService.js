@@ -1,10 +1,14 @@
 import axios from 'axios'
     
     const apiClient = axios.create({
-      baseURL: `http://localhost:3000`,
+      baseURL: `http://127.0.0.1:8000/api`,
       withCredentials: false, // This is the default
       headers: {
         Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+        "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Credentials" : "true",
         'Content-Type': 'application/json'
       }
     })
@@ -18,8 +22,9 @@ import axios from 'axios'
 
       getPosts(perPage, page){
         //return apiClient('/posts?_limit=' + perPage + '&_page=' + page)
-        return apiClient('posts?_sort=id&_order=desc' + '&_limit=' + perPage + '&_page=' + page)
-        ///posts?_sort=id&_order=desc
+        return apiClient('/posts')
+        //return apiClient('posts?_sort=id&_order=desc' + '&_limit=' + perPage + '&_page=' + page)
+
       },
 
       Post(post){
