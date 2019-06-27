@@ -32,18 +32,16 @@ export const mutations = {
     this.state.pagination.page = page
   },
   SET_POST(state, posts){
-    //console.log('SET_POST')
     state.posts = posts
-    //console.log('SET_POST -> posts: ', state.posts)
   },
   GET_POST_PAGE(){
     return this.state.pagination.page 
   },
+
   SET_POSTS_TOTAL(state, eventsTotal){
-    console.log('eventsTotal: ' , eventsTotal)
-    state.pagination.totalItems = eventsTotal
-    //console.log('state.pagination.totalItems: ' , state.pagination.totalItems)
+      state.pagination.totalItems = eventsTotal
   },
+
   DELETE_POST(state, id){
     var newArray = state.posts.filter(function(el){
       return el.id == id
@@ -53,8 +51,6 @@ export const mutations = {
 }
 
 export const actions = {
-
-
   createPost({ commit, dispatch }, post) {
     console.log('Wartość posta: ', post)
     return AlbumService.Post(post)
@@ -79,49 +75,58 @@ export const actions = {
           throw error
         })
   },
+///-----------------------------------------------------------------------------
 
-  fetchEvents({ commit, dispatch }, { perPage, page }) {
-    //console.log('fetchEvents2')
-    AlbumService.getPosts(perPage, page)
-      .then(response => {
-        commit(
-          'SET_POSTS_TOTAL',
-          parseInt(response.headers['x-total-count'])
-        )
-        commit('SET_POST', response.data)
-        //console.log('PAge: ', page)
-        //commit('SET_POST_PAGE', page)
-        const notification = {
-          type: 'success',
-          massege: '({ commit, dispatch }, { perPage, page }) - Udało się załadować stronę z albumami'
-        }
-        //dispatch('notification/add', notification, {root: true})
-        //dispatch('notification/remove', notification, {root: true})
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-        const notification = {
-          type: 'error',
-          massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
-        }
-        dispatch('notification/add', notification, {root: true})
-      })
-  },
+  // fetchEvents({ commit, dispatch }, { perPage, page }) {
+  //   //console.log('fetchEvents2')
+  //   AlbumService.getPosts(perPage, page)
+  //     .then(response => {
+        
+  //       commit(
+  //         'SET_POSTS_TOTAL',
+  //         parseInt(response.headers['x-total-count'])
+  //       )
+  //       commit('SET_POST', response.data)
+  //       //console.log('PAge: ', page)
+  //       //commit('SET_POST_PAGE', page)
+  //       const notification = {
+  //         type: 'success',
+  //         massege: '({ commit, dispatch }, { perPage, page }) - Udało się załadować stronę z albumami'
+  //       }
+  //       //dispatch('notification/add', notification, {root: true})
+  //       //dispatch('notification/remove', notification, {root: true})
+  //     })
+  //     .catch(error => {
+  //       console.log('There was an error:', error.response)
+  //       const notification = {
+  //         type: 'error',
+  //         massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
+  //       }
+  //       dispatch('notification/add', notification, {root: true})
+  //     })
+  // },
+///-----------------------------------------------------------------------------
 
 
   fetchEvents({commit, dispatch, getters}, page){
-    console.log("fetchEvents: ",state.pagination)
+    // Wyciągam ile jest w sumie wszytkich albumów
+    AlbumService.albumsCounter()
+    .then(response => {
+      commit( 'SET_POSTS_TOTAL',response.data )
+    })
+    .catch(error => {
+      console.log('There was an error:', error.response)
+    })
+
+    // Pobieram albumy 
     AlbumService.getPosts(state.pagination.perPage, page)
     .then(response => {
-
-      //console.log('posts: ', response.data.length)
-      commit(
-        'SET_POSTS_TOTAL', response.data.length
-        //parseInt(response.headers['x-total-count'])
-        
-      )
-      commit('SET_POST', response.data, page)
-    
+      // Przeniosłem do AlbumService.albumsCounter()
+      // commit(
+      //   'SET_POSTS_TOTAL', //response.data.length
+      //   parseInt(response.headers['x-total-count'])     
+      // )
+      commit('SET_POST', response.data, page)   
     })
     .catch(error => {
       console.log('There was an error:', error.response)
@@ -132,6 +137,7 @@ export const actions = {
       dispatch('notification/add', notification, {root: true})
     })
   },
+///-----------------------------------------------------------------------------
 
   fetchAlbum({ commit, getters, dispatch }, id) {
     var album = getters.getAlbumById(id)
@@ -152,8 +158,22 @@ export const actions = {
         })
     }
   },
+///-----------------------------------------------------------------------------
 
-  deleteAlbum({ commit, getters, dispatch }, id) {  
+  fetchImage({commit}, file){
+    AlbumService.uploadImage(file)
+    .then(function (response) {
+        response.data.success
+        console.log('Udało się wysłac dane! ', response.data)
+      })
+      .catch(function (error) {
+          //console.log('Błąd w fetchImage: ', error );
+          error
+      });
+  },
+///-----------------------------------------------------------------------------
+
+  deleteAlbum({ commit, getters, dispatch }, ) {  
     AlbumService.delete(id)
     .then(response => {
       commit('DELETE_POST', response.data)
@@ -170,12 +190,12 @@ export const actions = {
       const notification = {
         type: 'error',
         massege: 'Wystąpił problem z usuwaniem Albumu. ' +  error.response,
-
       }
       dispatch('notification/add', notification, {root: true})
     })
   },
-  
+ ///-----------------------------------------------------------------------------
+ 
 
   updateAlbum({commit, getters, dispatch}, post) {
     console.log('id= ' + post.id)
@@ -199,6 +219,7 @@ export const actions = {
       dispatch('notification/add', notification, {root: true})
      })
   },
+///-----------------------------------------------------------------------------
 
 }
 
@@ -207,8 +228,6 @@ export const getters = {
     return state.posts.find(post => post.id === id)
   },
   pagin: state => {
-    console.log('pagin: ',  state.pagination)
-
-    return state.pagination
+     return state.pagination
   },
 }

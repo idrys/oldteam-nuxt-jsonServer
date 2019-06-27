@@ -18,8 +18,8 @@
   <br>
   <h1>Albumy edytuje: {{ userModule.user.name }}</h1>
    <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex v-for="post in albumModule.posts" :key="post.id" :post="post" xs4>
+    <v-layout row wrap v-resize="onResize">
+      <v-flex v-for="post in albumModule.posts" :key="post.id" :post="post" xs12 sm6 md4 xl3 lg4>
         <v-card >
           <AlbumEdit
             :post = post
@@ -105,10 +105,24 @@ export default {
     },
 
   },
+  mounted () {
+    this.onResize() 
+  },
   methods:{
     addAlbum(){
       this.$router.push('/Admin/AlbumCreate/')
     },
+     onResize () { // Niedziała!
+      //console.log('Resize')
+      if (this.$vuetify.breakpoint.xl){
+        this.pagin.perPage = 12
+        console.log("New PerPage: ", this.pagin) // Nie rozumiem czemu nie zmienia się wartość PerPage
+        //this.$store.dispatch('albumModule/fetchEvents', 1)
+      }
+      else{
+        this.pagin.perPage = 9
+      }
+    }
   }
 
 }

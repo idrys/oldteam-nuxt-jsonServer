@@ -72,7 +72,7 @@ export default {
 
     // Ile stron =  wszystkie karty / ilość kart na stronie
     pages () {
-      return  Math.ceil(this.pagin.totalItems/this.pagin.perPage ) 
+        return  Math.ceil(this.pagin.totalItems/this.pagin.perPage ) 
     },
 
 
@@ -83,7 +83,7 @@ export default {
       set: function (value) {
         this.$data.page = value
         this.$store.dispatch('albumModule/fetchEvents', value)
-        this.$vuetify.goTo(600)
+        this.$vuetify.goTo(500)
       }
     },
 

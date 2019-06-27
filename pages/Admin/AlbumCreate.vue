@@ -111,7 +111,7 @@
 <script>
 import AlbumService from '@/services/AlbumService.js'
 import { mapState } from 'vuex' 
-
+import axios from 'axios'
 
 export default {
     created() {
@@ -159,15 +159,30 @@ export default {
       let filename = files[0].filename
       this.post.imgUrl = files[0].name
       console.log('files[0].filename: ', files[0].name )
-      
+      this.$store.dispatch('albumModule/fetchImage', files[0])
       // https://www.youtube.com/watch?v=J2Wp4_XRsWc 9:00
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', ()=>{
+      // const fileReader = new FileReader()
+      // fileReader.addEventListener('load', ()=>{
 
-        this.post.imgUrl = fileReader.result
-      })
-      fileReader.readAsDataURL(files[0])
-      this.post.image = files[0]
+      //   this.post.imgUrl = fileReader.result
+      // })
+      // fileReader.readAsDataURL(files[0])
+      // this.post.image = files[0]
+
+      // const config = {
+      //     headers: { 'content-type': 'multipart/form-data' }
+      // }
+
+      //let formData = new FormData();
+      //formData.append('image', this.image);
+
+      // axios.post('http://127.0.0.1:8000/api/formSubmit', files[0], config)
+      // .then(function (response) {
+      //     currentObj.success = response.data.success;
+      // })
+      // .catch(function (error) {
+      //     currentObj.output = error;
+      // });
     }
   },
   computed: mapState(['albumModule'])

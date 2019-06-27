@@ -2,7 +2,11 @@
   <div>
     <v-card class="elevation-10 transparent">
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="require('~/assets/img/' + post.imgUrl)" >
+         <v-img class="white--text elevation-3"  height="170px"
+          :src="image_src"
+          >
+          <a v-bind:href="image_src"></a>
+
           <v-layout justify-space-between row v-show="edit" >
             <v-btn fab small dark @click="deleteAlbum" color="red"> <v-icon>delete</v-icon></v-btn>
             <v-btn fab small dark @click="editAlbum" color="green"> <v-icon>edit</v-icon></v-btn>
@@ -61,6 +65,8 @@ export default {
   data () {
     return {
      //edit: editProps
+     //imgServerUrl: '~/assets/img/'  // laravel
+      image_src: 'http://localhost:8000/images/' + this.post.imgUrl //1560492000.jpg' // json-Servel
     }
   }
 
