@@ -28,10 +28,8 @@ export default {
   data (){
     return{
       body: 
-      `
+        `
           <br />
-          
-
           <div class="subheading"><p>Chciałbym podzielić się ze swoimi spostrzeżeniami z kolejnego wyjazdu, może tym razem będzie bardziej poważnie, bo i może na tym wyjeździe więcej było zadumy niż wódki.
           <br />
           <br />
@@ -127,11 +125,7 @@ export default {
           </p>
                       <div class="title mb-3"><p>Romulad P</p></div>
         </div>
-
-
-
-
-`
+      `
     }
   }
 }

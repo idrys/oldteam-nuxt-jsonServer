@@ -9,8 +9,7 @@ import axios from 'axios'
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
         "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
         "Access-Control-Allow-Credentials" : "true",
-
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM'
+        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM',   
       }
     })
     // 'Content-Type': 'application/json',
@@ -30,9 +29,15 @@ import axios from 'axios'
 
       },
 
-      Post(post){
-        //console.log("POst post")
-        return apiClient.post('/posts',  post )       
+      storeAlbum(album){
+        //console.log("Album: ", album )
+        let formData = new FormData();
+        
+        Object.keys(album).forEach(function(key){
+          formData.set(key, album[key])
+          //console.log(key + ' = ' + album[key]);
+       });
+        return apiClient.post('/album',  formData ) 
       },
 
       albumsCounter(){
@@ -42,6 +47,7 @@ import axios from 'axios'
       delete(id){
         // return jest niezbędny bo przekazuję alians do funkcji
         // dzięki temu mogę wykorzystywać .then i .cache
+        console.log('Delete id:', id )
         return apiClient.delete('/posts/' + id)  
       },
 
@@ -54,11 +60,25 @@ import axios from 'axios'
       },
       
       uploadImage(file){
+
         let formData = new FormData();
-        //formData.append('image', file, file.fileName);
         formData.set('image', file)
         //console.log('file: ', formData,)
         return apiClient.post('/uploadImage', formData)
+
+      //   console.log('Licza elementów: ', Object.keys(album).length)
+
+      //   Object.keys(album).forEach(function(key){
+      //     console.log(key + ' = ' + album[key]);
+      //  });
+
+      //   return apiClient.post('/uploadImage', formData)
       }
+
+      // $this->validate($request, array(
+      //   'first' => 'required',
+      //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+      //   ));
+
 
     }

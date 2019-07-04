@@ -51,27 +51,28 @@ export const mutations = {
 }
 
 export const actions = {
-  createPost({ commit, dispatch }, post) {
-    console.log('Wartość posta: ', post)
-    return AlbumService.Post(post)
-        .then(() => {
-          //console.log("SUKCES")
-          commit('ADD_POST', post)
+  createNewAlbum({ commit, dispatch }, newAlbum) {
+    console.log('Wartość nwego albumu: ', newAlbum)
+    return AlbumService.storeAlbum(newAlbum)
+        .then(response  => {
+          commit('ADD_POST', newAlbum)
           const notification = {
             type: 'success',
             massege: 'Twój album został właśnie utworzony.'
           }
           dispatch('notification/add', notification, {root: true})
+          console.log("SUKCES: udało się przekazać nowy albumu do API", response)
           //this.$router.push('/Admin/AlbumEditList/')
         })
         .catch(error => {
-          console.log('Błąd: There was an error:', error)
+          console.log("Błąd: Nie udało się przekazać nowego albumu do API", error.response)
+          //console.log('Błąd: There was an error:', error)
           const notification = {
             type: 'error',
             massege: 'Wystąpił problem z tworzeniem nowego Albumu. ' +  error
           }
           dispatch('notification/add', notification, {root: true})
-          console.log("PORAŻKA")
+          //console.log("PORAŻKA: nie udało się przekazać nowego albumu do API")
           throw error
         })
   },
@@ -112,6 +113,7 @@ export const actions = {
     // Wyciągam ile jest w sumie wszytkich albumów
     AlbumService.albumsCounter()
     .then(response => {
+      console.log('Sukces: ', response)
       commit( 'SET_POSTS_TOTAL',response.data )
     })
     .catch(error => {
@@ -160,8 +162,9 @@ export const actions = {
   },
 ///-----------------------------------------------------------------------------
 
-  fetchImage({commit}, file){
-    AlbumService.uploadImage(file)
+  fetchImage({commit},  album){
+    console.log('Album1: ', album);
+    AlbumService.uploadImage( album )
     .then(function (response) {
         response.data.success
         console.log('Udało się wysłac dane! ', response.data)
@@ -173,7 +176,7 @@ export const actions = {
   },
 ///-----------------------------------------------------------------------------
 
-  deleteAlbum({ commit, getters, dispatch }, ) {  
+  deleteAlbum({ commit, getters, dispatch },id ) {  
     AlbumService.delete(id)
     .then(response => {
       commit('DELETE_POST', response.data)

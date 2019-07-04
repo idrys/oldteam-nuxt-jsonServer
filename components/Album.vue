@@ -66,7 +66,7 @@ export default {
     return {
      //edit: editProps
      //imgServerUrl: '~/assets/img/'  // laravel
-      image_src: 'http://localhost:8000/images/' + this.post.imgUrl //1560492000.jpg' // json-Servel
+      image_src: 'http://localhost:8000/images/' + this.post.imgUrl
     }
   }
 

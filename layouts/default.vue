@@ -4,12 +4,20 @@
       <v-container fluid>
         <v-layout row child-flex wrap>
           <v-toolbar absolute >
+
             <v-btn fab large flat >
               <v-img :src="logo"  max-width="80"></v-img>
             </v-btn>
-            <v-toolbar-title>Oldteam Club</v-toolbar-title>
+            <v-toolbar-title>
+              Oldteam Club
+            </v-toolbar-title>
+            
             <v-spacer></v-spacer>
-            <v-toolbar-title>Logowanie</v-toolbar-title>
+            <v-toolbar-title>   
+              <v-btn><nuxt-link to="/Admin/AlbumEditList/">Edycja</nuxt-link></v-btn>
+              <v-btn><nuxt-link to="/Articles/1">Artykuł</nuxt-link></v-btn>
+              <v-btn><nuxt-link to="/">Logowanie</nuxt-link></v-btn>
+            </v-toolbar-title>
           </v-toolbar>
         </v-layout>
       </v-container>

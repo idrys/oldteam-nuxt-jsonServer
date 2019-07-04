@@ -5,8 +5,8 @@
          <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="require('~/assets/img/' + post.imgUrl)" ></v-img> 
-         <!-- :src="post.imgUrl" -->
+         <v-img class="white--text elevation-3"  height="170px" :src="post.imgUrl" ></v-img> 
+         <!--  :src="require('~/assets/img/' + post.imgUrl)"  -->
         
         <v-flex xs12 align-end d-flex>
           
@@ -114,16 +114,16 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 
 export default {
-    created() {
-    AlbumService.getPosts()
-      .then(response => {
-        this.posts =  response.data 
-        // Jeśli ładuje tylko jeden element to:
-        //this.posts.push (response.data) 
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
+  created() {
+    // AlbumService.getPosts()
+    //   .then(response => {
+    //     this.posts =  response.data 
+    //     // Jeśli ładuje tylko jeden element to:
+    //     //this.posts.push (response.data) 
+    //   })
+    //   .catch(error => {
+    //     console.log('There was an error:', error.response)
+    //   })
   },
   data: ()=>({
     file: '',
@@ -133,33 +133,63 @@ export default {
       title: 'Tytuł testowy',
       content: 'Opis',
       //imgUrl: require('~/assets/img/BenNevis.jpg'),
-      imgUrl: 'BenNevis.jpg',
+      imgUrl: '',
       raport: 'opis długi',
       image: null
     }
   }),
+
   methods: {
+
     sumit(){
-      this.post.id = new Date().valueOf();
-      //console.log('Title: ', this.post)
-      this.$store.dispatch('albumModule/createPost', this.post)
-      this.$router.push('/Admin/AlbumEditList/')
+      
+      //this.post.id = new Date().valueOf();
+      //this.$store.dispatch('albumModule/fetchImage', this.post)
+      this.$store.dispatch('albumModule/createNewAlbum', this.post)
+      //this.$router.push('/Admin/AlbumEditList/')
     },
+
     cancel(){
       this.$router.push('/Admin/AlbumEditList/')
     },
+
     reset(){
 
     },
     onPickFile(){
       this.$refs.fileInput.click()
     },
+
     onFilePicked(events){
       const files = events.target.files
-      let filename = files[0].filename
-      this.post.imgUrl = files[0].name
-      console.log('files[0].filename: ', files[0].name )
-      this.$store.dispatch('albumModule/fetchImage', files[0])
+      let filename = files[0].name
+
+      
+
+      if(filename.lastIndexOf('.') <= 0){
+        console.log('Coś z tym plikiem jest nie tak!')
+      }
+      else{
+        console.log('Plik graficzny jest OK')
+      }
+      // saveInTempFolder(files[0].name)
+
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', ()=>{
+        console.log('Wykonuje: addEventListener ')
+        this.post.imgUrl = fileReader.result
+
+      })
+      fileReader.readAsDataURL(files[0])
+      this.post.image = files[0];
+    
+      //var image = new Image();
+      //image.src = this.post.image;
+
+      
+
+      //this.$store.dispatch('albumModule/fetchImage', files[0])
+
       // https://www.youtube.com/watch?v=J2Wp4_XRsWc 9:00
       // const fileReader = new FileReader()
       // fileReader.addEventListener('load', ()=>{
@@ -183,6 +213,29 @@ export default {
       // .catch(function (error) {
       //     currentObj.output = error;
       // });
+    },
+
+    resizeImage(img){
+      var MAX_WIDTH = 800;
+      var MAX_HEIGHT = 600;
+      var width = img.width;
+      var height = img.height;
+      
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width *= MAX_HEIGHT / height;
+          height = MAX_HEIGHT;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      var ctx = canvas.getContext("2d");
+      return ctx.drawImage(img, 0, 0, width, height);
     }
   },
   computed: mapState(['albumModule'])
