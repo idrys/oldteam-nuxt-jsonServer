@@ -142,11 +142,8 @@ export default {
   methods: {
 
     sumit(){
-      
-      //this.post.id = new Date().valueOf();
-      //this.$store.dispatch('albumModule/fetchImage', this.post)
       this.$store.dispatch('albumModule/createNewAlbum', this.post)
-      //this.$router.push('/Admin/AlbumEditList/')
+      this.$router.push('/Admin/AlbumEditList/')
     },
 
     cancel(){

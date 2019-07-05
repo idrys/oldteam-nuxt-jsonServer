@@ -39,6 +39,7 @@ export default {
   created() {
     //this.$store.dispatch('fetchEvent', this.id)
     //console.log('posts: ',this.post)
+    this.chackIsImage()
   },
   props:{
     post: Object,
@@ -53,6 +54,18 @@ export default {
       //console.log("Delete Album id: ", this.post.id) 
       this.$store.dispatch('albumModule/deleteAlbum', this.post.id)
       //this.$router.push('/Admin/Album/' + this.post.id)
+    },
+    chackIsImage(){
+      if(this.post.image != null){
+        if(this.post.image.key == null){
+          console.log('Brak key zdjęcia: ', this.post.id ); 
+          throw 'Brak key zdjęcia: ', this.post.id; 
+        }
+        else{
+          this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg';
+        }
+      }
+
     }
   },
   computed: {
@@ -66,7 +79,7 @@ export default {
     return {
      //edit: editProps
      //imgServerUrl: '~/assets/img/'  // laravel
-      image_src: 'http://localhost:8000/images/' + this.post.imgUrl
+      image_src: ''
     }
   }
 

@@ -52,7 +52,7 @@ export const mutations = {
 
 export const actions = {
   createNewAlbum({ commit, dispatch }, newAlbum) {
-    console.log('Wartość nwego albumu: ', newAlbum)
+    //console.log('Wartość nwego albumu: ', newAlbum)
     return AlbumService.storeAlbum(newAlbum)
         .then(response  => {
           commit('ADD_POST', newAlbum)
@@ -113,7 +113,7 @@ export const actions = {
     // Wyciągam ile jest w sumie wszytkich albumów
     AlbumService.albumsCounter()
     .then(response => {
-      console.log('Sukces: ', response)
+      //console.log('Sukces: ', response)
       commit( 'SET_POSTS_TOTAL',response.data )
     })
     .catch(error => {
@@ -128,6 +128,7 @@ export const actions = {
       //   'SET_POSTS_TOTAL', //response.data.length
       //   parseInt(response.headers['x-total-count'])     
       // )
+      console.log(response.data)
       commit('SET_POST', response.data, page)   
     })
     .catch(error => {
