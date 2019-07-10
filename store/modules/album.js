@@ -4,6 +4,17 @@ import AlbumService from '@/services/AlbumService.js'
 export const namespaced = true
 
 export const state = {
+  album: {
+    id: 0,
+      gallery: '',
+      title: '',
+      content: '',
+      imgUrl: 'BenNevis.jpg',
+      raport: 'opis długi',
+      image: {
+        key: '1562232704'
+      }
+  },
   posts: [{
     id: 0,
       gallery: '/sciezka/do/galeri/',
@@ -11,7 +22,9 @@ export const state = {
       content: 'Opis',
       imgUrl: 'BenNevis.jpg',
       raport: 'opis długi',
-      image: null
+      image: {
+        key: '1562232704'
+      }
   }],
   pagination: {
     descending: true,
@@ -32,8 +45,15 @@ export const mutations = {
     this.state.pagination.page = page
   },
   SET_POST(state, posts){
+    //console.log(posts)
     state.posts = posts
   },
+
+  SET_ALBUM(state, album){
+    state.album = album
+    console.log('SET_ALBUM: ', state.album)
+  },
+
   GET_POST_PAGE(){
     return this.state.pagination.page 
   },
@@ -128,7 +148,7 @@ export const actions = {
       //   'SET_POSTS_TOTAL', //response.data.length
       //   parseInt(response.headers['x-total-count'])     
       // )
-      console.log(response.data)
+      //console.log(response.data)
       commit('SET_POST', response.data, page)   
     })
     .catch(error => {
@@ -143,23 +163,28 @@ export const actions = {
 ///-----------------------------------------------------------------------------
 
   fetchAlbum({ commit, getters, dispatch }, id) {
-    var album = getters.getAlbumById(id)
-     if (album) {
-       commit('SET_POST', album)
-    } else {
+    //console.log('Edytuje album id: ', id)
+    //var album = getters.getAlbumById(id)
+    //  if (album) {
+    //   console.log('jeden')
+    //    commit('SET_POST', album)
+    // } else {
+      //console.log('else')
       AlbumService.getPost(id)
         .then(response => {
-          commit('SET_POST', response.data)
+          //commit('SET_POST', response.data)
+          commit('SET_ALBUM', response.data)
+          //console.log('Dane z API: ', response.data)
         })
         .catch(error => {
           console.log('There was an error:', error.response)
-          const notification = {
-            type: 'error',
-            massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
-          }
-          dispatch('notification/add', notification, {root: true})
+          // const notification = {
+          //   type: 'error',
+          //   massege: 'Wystąpił problem z ładowaniem Albumu. ' +  error.response
+          // }
+          // dispatch('notification/add', notification, {root: true})
         })
-    }
+    //}
   },
 ///-----------------------------------------------------------------------------
 
@@ -177,12 +202,13 @@ export const actions = {
   },
 ///-----------------------------------------------------------------------------
 
-  deleteAlbum({ commit, getters, dispatch },id ) {  
+  deleteAlbum({ commit, dispatch },id ) {  
+    //console.log()
     AlbumService.delete(id)
     .then(response => {
       commit('DELETE_POST', response.data)
-      dispatch('fetchEvents', 1 )
-
+      dispatch('fetchEvents', 1 ) // Odświezenie, wczytuje pierwsza strone ( 9 albumow )
+      console.log('Usuwanie albumu:', response)
       const notification = {
         type: 'success',
         massege: 'Album został usunięty.',
@@ -190,10 +216,10 @@ export const actions = {
       dispatch('notification/add', notification, {root: true})
     })
     .catch(error => {
-      console.log('There was an error:', error)
+      console.log('Wystąpił problem z usuwaniem Albumu:', error)
       const notification = {
         type: 'error',
-        massege: 'Wystąpił problem z usuwaniem Albumu. ' +  error.response,
+        massege: 'Wystąpił problem z usuwaniem Albumu. ' +  error,
       }
       dispatch('notification/add', notification, {root: true})
     })
@@ -229,7 +255,14 @@ export const actions = {
 
 export const getters = {
   getAlbumById: state => id => {
-    return state.posts.find(post => post.id === id)
+    //var album = 0
+    //console.log('Liczba elementów w tablicy posts: ', state.posts.length)
+    // state.posts.find(post => post.id === id)
+     console.log('Album getAlbumById: ', state.posts.find(post => post.id === id))
+    return state.posts.find(post => post.id == id)
+  },
+  getAlbum: state => {
+    return state.posts[0];
   },
   pagin: state => {
      return state.pagination

@@ -5,10 +5,10 @@
          <v-img class="white--text elevation-3"  height="170px"
           :src="image_src"
           >
-          <a v-bind:href="image_src"></a>
+          <!--a v-bind:href="image_src"></a-->
 
           <v-layout justify-space-between row v-show="edit" >
-            <v-btn fab small dark @click="deleteAlbum" color="red"> <v-icon>delete</v-icon></v-btn>
+            <v-btn fab small dark @click="deleteAlbum" color="red" > <v-icon>delete</v-icon></v-btn>
             <v-btn fab small dark @click="editAlbum" color="green"> <v-icon>edit</v-icon></v-btn>
           </v-layout>
          </v-img> 
@@ -56,13 +56,16 @@ export default {
       //this.$router.push('/Admin/Album/' + this.post.id)
     },
     chackIsImage(){
+      //console.log('Zawartość props:post = ', this.post)
       if(this.post.image != null){
         if(this.post.image.key == null){
+          this.post.image=this.album.image;
           console.log('Brak key zdjęcia: ', this.post.id ); 
           throw 'Brak key zdjęcia: ', this.post.id; 
         }
         else{
           this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg';
+          //console.log('Klucz zdjęcia: ', this.image_src)
         }
       }
 

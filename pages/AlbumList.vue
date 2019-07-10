@@ -98,7 +98,7 @@ export default {
       //console.log('Resize')
       if (this.$vuetify.breakpoint.xl){
         this.pagin.perPage = 12
-        console.log("New PerPage: ", this.pagin) // Nie rozumiem czemu nie zmienia się wartość PerPage
+        //console.log("New PerPage: ", this.pagin) // Nie rozumiem czemu nie zmienia się wartość PerPage
         //this.$store.dispatch('albumModule/fetchEvents', 1)
       }
       else{

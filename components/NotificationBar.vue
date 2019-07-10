@@ -49,7 +49,7 @@ export default {
   methods: {
     ...mapActions('notification', ['remove']),
     colorsChange(){
-      console.log(' this.notification.type: ',  this.notification.type)
+      //console.log(' this.notification.type: ',  this.notification.type)
       if ( this.notification.type == 'success' ){
         this.alertColor =  'rgb(0, 128, 0, 0.9)'
       }
@@ -62,7 +62,7 @@ export default {
       if ( this.notification.type == 'warning' ){
         this.alertColor =  'rgb(255, 165, 0, 0.9)'
       }
-  console.log('color: ', this.alertColor)
+  //console.log('color: ', this.alertColor)
     }
 },
   data () {

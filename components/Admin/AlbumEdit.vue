@@ -6,10 +6,10 @@
 
         <v-card-text class="text-xs-center">
          <v-img 
-            class="white--text elevation-3"  height="170px" 
-            :src="require('~/assets/img/' + post.imgUrl)" 
+            class="white--text elevation-3"  height="170px" :src="image_src"
           ></v-img> 
          <!-- :src="imgUrl" -->
+         <!-- :src="require('~/assets/img/' + post.imgUrl)" -->
         
         <v-flex xs12 align-end d-flex>
           
@@ -121,7 +121,14 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   data: ()=>({
     file: '',
+    image_src: ''
+    
   }),
+
+  created() {
+    
+    this.chackIsImage()
+  },
 
   props:{
     post: Object
@@ -140,8 +147,28 @@ export default {
       this.$store.dispatch('albumModule/updateAlbum',this.post)
     },
 
+    chackIsImage(){
+      console.log('wartość: ', this.post);
+
+      if(this.post.image != null){
+        if(this.post.image.key == null){
+          console.log('Brak key zdjęcia: ', this.post.id ); 
+          throw 'Brak key zdjęcia: ', this.post.id; 
+        }
+        else{
+          console.log('Mam zdjęcie: ', this.post.id );
+          this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg';
+        }
+      }
+      else{
+        console.log('Brak key zdjęcia: ', this.post.id ); 
+          throw 'Brak key zdjęcia: ', this.post.id; 
+      }
+      this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg';
+    },
+
     cancel(){
-      console.log('Cancel')
+      //console.log('Cancel')
       this.$router.push('/Admin/AlbumEditList/')
     },
 
@@ -163,7 +190,7 @@ export default {
       const files = events.target.files
       let filename = files[0].filename
       this.post.imgUrl = files[0].name
-      console.log('files[0].filename: ', files[0].name )
+      //console.log('files[0].filename: ', files[0].name )
       const fileReader = new FileReader()
       fileReader.addEventListener('load', ()=>{
         this.post.imgUrl = fileReader.result

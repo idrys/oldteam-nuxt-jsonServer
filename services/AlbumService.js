@@ -5,11 +5,14 @@ import axios from 'axios'
       withCredentials: false, // This is the default
       headers: {
         Accept: 'multipart/form-data',
+        
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
         "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
         "Access-Control-Allow-Credentials" : "true",
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM',   
+        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM', 
+        
+        
       }
     })
     // 'Content-Type': 'application/json',
@@ -19,7 +22,8 @@ import axios from 'axios'
 
       // Nie mogę za bardzo ingerować w tą funkcję zamieniając to np w Array bo zwaracana jest alians funkcji ( albo wskaźnik do funkcji) a nie Object.
       getPost(id) {  
-        return  apiClient('/posts?id=' + id) // PAMIĘTAJ o znaku zapytania !!
+        //return  apiClient('/posts?id=' + id) // PAMIĘTAJ o znaku zapytania !!
+        return apiClient.get('/album/' + id)
       },
 
       getPosts(perPage, page){
@@ -45,10 +49,16 @@ import axios from 'axios'
       },
       
       delete(id){
+        // axios.defaults.headers.common = {
+        //   'X-Requested-With': 'XMLHttpRequest',
+        //   'X-CSRF-TOKEN': window.csrf_token
+        // }
+
+
         // return jest niezbędny bo przekazuję alians do funkcji
         // dzięki temu mogę wykorzystywać .then i .cache
-        console.log('Delete id:', id )
-        return apiClient.delete('/posts/' + id)  
+        //console.log('Delete id:', id )
+        return apiClient.delete('/album/2') //+ id)  
       },
 
       update(post){
@@ -56,7 +66,7 @@ import axios from 'axios'
         // dzięki temu mogę wykorzystywać .then i .cache
         //console.log('post: ', post.title)
 
-        return apiClient.put('/posts/' + post.id, post)
+        return apiClient.put('/album/' + post.id, post)
       },
       
       uploadImage(file){

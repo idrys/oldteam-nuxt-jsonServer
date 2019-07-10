@@ -82,16 +82,15 @@ export default {
     ... mapState(['albumModule', 'userModule']),
     ...mapGetters({
       pagin: 'albumModule/pagin'
-     } ) ,
+    }),
 
     // Ile stron =  wszystkie karty / ilość kart na stronie
     pages () {
-      console.log('totalItems: ' +  this.pagin.totalItems)
-      console.log('perPage: ' + this.pagin.perPage)
+      //console.log('totalItems: ' +  this.pagin.totalItems)
+      //console.log('perPage: ' + this.pagin.perPage)
       //console.log( 'pages: ' +   Math.ceil(20/9))
       return  Math.ceil( this.pagin.totalItems/this.pagin.perPage ) 
     },
-
 
     pagination: {
       get: function () {
@@ -116,10 +115,11 @@ export default {
       //console.log('Resize')
       if (this.$vuetify.breakpoint.xl){
         this.pagin.perPage = 12
-        console.log("New PerPage: ", this.pagin) // Nie rozumiem czemu nie zmienia się wartość PerPage
+        //console.log("New PerPage: ", this.pagin) // Nie rozumiem czemu nie zmienia się wartość PerPage
         //this.$store.dispatch('albumModule/fetchEvents', 1)
       }
       else{
+        //TODO AlbumEditList onResize() sprawdzić powinna być przypisywan dynamicznie wartość perPage
         this.pagin.perPage = 9
       }
     }
