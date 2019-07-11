@@ -9,14 +9,13 @@ import axios from 'axios'
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
         "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
-        "Access-Control-Allow-Credentials" : "true",
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM', 
-        
-        
+        "Access-Control-Allow-Credentials" : "true"
+          
       }
     })
     // 'Content-Type': 'application/json',
     // 'application/json',
+    // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM'  
 
     export default {
 
@@ -61,12 +60,17 @@ import axios from 'axios'
         return apiClient.delete('/album/2') //+ id)  
       },
 
-      update(post){
+      update(album){
         // return jest niezbędny bo przekazuję alians do funkcji
         // dzięki temu mogę wykorzystywać .then i .cache
-        //console.log('post: ', post.title)
-
-        return apiClient.put('/album/' + post.id, post)
+        let formData = new FormData();
+        //apiClient.data()
+        Object.keys(album).forEach(function(key){
+          formData.set(key, album[key])
+          //console.log(key + ' = ' + album[key]);
+       });
+       formData.append('_method', 'PUT');
+        return apiClient.post('/album/'+ album.id, formData)
       },
       
       uploadImage(file){

@@ -228,11 +228,12 @@ export const actions = {
  
 
   updateAlbum({commit, getters, dispatch}, post) {
-    console.log('id= ' + post.id)
-     console.log('post: ', post.title)
+    //console.log('id= ' + post.id)
+     //console.log('post: ', post.title)
     AlbumService.update(post)
      .then(response => {
-       //commit('  SET_POST', response.data)
+       //commit('SET_POST', response.data)
+       console.log('Dane:', response.data)
        const notification = {
         type: 'success',
         massege: 'Twój album został zaktualizowany.'

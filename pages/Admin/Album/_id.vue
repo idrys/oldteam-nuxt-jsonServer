@@ -25,7 +25,7 @@ export default {
 
   created() {
     this.$store.dispatch('albumModule/fetchAlbum', this.$route.params.id)
-    this.find()
+    
    },
 
   components:{
@@ -47,9 +47,6 @@ export default {
   },
 
   methods:{
-    find(){
-      //console.log('albumModule.state.posts', this.$store.state)
-    },
      getAlbum(id) {
         return this.$store.state.albumModule.posts.find(post => post.id == id)
       }

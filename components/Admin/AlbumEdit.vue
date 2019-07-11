@@ -141,9 +141,7 @@ export default {
   methods: {
 
     sumit(){
-      //console.log(new Date().valueOf())
-      //this.post.id = 15 //+ '_' + Math.random().toString(36).substr(2, 9);
-      //console.log('Title: ', this.post)
+      //console.log('Post: ', this.post)
       this.$store.dispatch('albumModule/updateAlbum',this.post)
     },
 
