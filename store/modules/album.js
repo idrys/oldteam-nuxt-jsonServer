@@ -50,11 +50,25 @@ export const mutations = {
   },
 
   UPDATA_POST(state, newPost){
-    console.log('UPDATA_POST: ')
+    //console.log('UPDATA_POST: ')
     //console.log('state.posts: ', sat)
-    console.log('newPost: ', newPost.id)
-    var oldPost = null
-    oldPost = state.posts.find(post => post.id == newPost.id)
+    //console.log('newPost: ', newPost.id)
+    //var oldPost = state.posts.find(post => post.id == newPost.id)
+    let i = 0
+    state.posts.forEach(post => function(){
+      i++
+      //console.log('post.id ', post.id)
+      //console.log('newPost.id', newPost.id)
+      if(post.id == newPost.id)
+      {
+        state.posts[i].set( newPost )
+        //console.log('Mam ', i);
+        return false;
+      }
+    });
+    console.log('state.posts: ', state.posts[i] )
+    //Vue.set(state.posts, state.posts.find(post => post.id == newPost.id), newPost)
+    //console.log('oldPost: ' , oldPost )
     //console.log('oldPost: ', oldPost )
     //oldPost = newPost
   },
