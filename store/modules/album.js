@@ -49,6 +49,16 @@ export const mutations = {
     state.posts = posts
   },
 
+  UPDATA_POST(state, newPost){
+    console.log('UPDATA_POST: ')
+    //console.log('state.posts: ', sat)
+    console.log('newPost: ', newPost.id)
+    var oldPost = null
+    oldPost = state.posts.find(post => post.id == newPost.id)
+    //console.log('oldPost: ', oldPost )
+    //oldPost = newPost
+  },
+
   SET_ALBUM(state, album){
     state.album = album
     console.log('SET_ALBUM: ', state.album)
@@ -232,8 +242,8 @@ export const actions = {
      //console.log('post: ', post.title)
     AlbumService.update(post)
      .then(response => {
-       //commit('SET_POST', response.data)
-       console.log('Dane:', response.data)
+       commit('UPDATA_POST', response.data)
+       //console.log('Dane:', response.data)
        const notification = {
         type: 'success',
         massege: 'Twój album został zaktualizowany.'

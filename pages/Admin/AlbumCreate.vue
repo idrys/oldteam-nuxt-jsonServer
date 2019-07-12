@@ -161,8 +161,6 @@ export default {
       const files = events.target.files
       let filename = files[0].name
 
-      
-
       if(filename.lastIndexOf('.') <= 0){
         console.log('Coś z tym plikiem jest nie tak!')
       }
@@ -173,8 +171,9 @@ export default {
 
       const fileReader = new FileReader()
       fileReader.addEventListener('load', ()=>{
-        console.log('Wykonuje: addEventListener ')
+        //console.log('Wykonuje: addEventListener ')
         this.post.imgUrl = fileReader.result
+      //console.log('this.post.imgUrl: ', this.post.imgUrl)
 
       })
       fileReader.readAsDataURL(files[0])
