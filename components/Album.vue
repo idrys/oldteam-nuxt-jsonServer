@@ -57,6 +57,7 @@ export default {
     },
     deleteAlbum(){
       //console.log("Delete Album id: ", this.post.id) 
+      //console.log(this.post.id)
       this.$store.dispatch('albumModule/deleteAlbum', this.post.id)
       //this.$router.push('/Admin/Album/' + this.post.id)
     },

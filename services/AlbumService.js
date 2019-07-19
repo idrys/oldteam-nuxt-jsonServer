@@ -56,7 +56,7 @@ import axios from 'axios'
         // return jest niezbędny bo przekazuję alians do funkcji
         // dzięki temu mogę wykorzystywać .then i .cache
         //console.log('Delete id:', id )
-        return apiClient.delete('/album/2') //+ id)  
+        return apiClient.delete('/album/' + id)  
       },
 
       update(album){

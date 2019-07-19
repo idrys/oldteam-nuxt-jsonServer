@@ -12,7 +12,7 @@ export const state = {
       imgUrl: 'BenNevis.jpg',
       raport: 'opis długi',
       image: {
-        key: '1562232704'
+        key: 'albumtmp'
       }
   },
   posts: [{
@@ -23,7 +23,7 @@ export const state = {
       imgUrl: 'BenNevis.jpg',
       raport: 'opis długi',
       image: {
-        key: '1562232704'
+        key: 'albumtmp'
       }
   }],
   pagination: {
@@ -221,12 +221,12 @@ export const actions = {
 ///-----------------------------------------------------------------------------
 
   deleteAlbum({ commit, dispatch },id ) {  
-    //console.log()
+    console.log('Usuwanie album id: ', id  )
     AlbumService.delete(id)
     .then(response => {
       commit('DELETE_POST', response.data)
       dispatch('fetchEvents', 1 ) // Odświezenie, wczytuje pierwsza strone ( 9 albumow )
-      console.log('Usuwanie albumu:', response)
+      console.log('Usuwanie albumu: ', response.data)
       const notification = {
         type: 'success',
         massege: 'Album został usunięty.',
