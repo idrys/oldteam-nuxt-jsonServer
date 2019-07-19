@@ -115,17 +115,9 @@ import axios from 'axios'
 
 export default {
   created() {
-    // AlbumService.getPosts()
-    //   .then(response => {
-    //     this.posts =  response.data 
-    //     // Jeśli ładuje tylko jeden element to:
-    //     //this.posts.push (response.data) 
-    //   })
-    //   .catch(error => {
-    //     console.log('There was an error:', error.response)
-    //   })
     this.onCreate()
   },
+
   props:{
     post: Object
   },
@@ -138,7 +130,7 @@ export default {
       gallery: '/sciezka/do/galeri/',
       title: 'Tytuł testowy',
       content: 'Opis',
-      imgUrl: '',
+      //imgUrl: '',
       imgUrl: '',
       raport: 'opis długi',
       image: null
@@ -148,8 +140,9 @@ export default {
   methods: {
     onCreate(){
       //console.log('Album: ', this.album)
-      console.log('Post: ', this.post)
-      this.newAlbum.imgUrl = 'http://localhost:8000/images/' + this.post.image.key + '.' + this.post.image.ext
+      //console.log('Post: ', this.post)
+      this.newAlbum.imgUrl = 'http://localhost:8000/images/' + this.post.image.key + '.' + this.post.image.ext + '#' + new Date().getTime();
+      //console.log('this.newAlbum.imgUrl: ', this.newAlbum.imgUrl)
       this.newAlbum.id = this.post.id
       this.newAlbum.title = this.post.title
       this.newAlbum.content = this.post.content
@@ -158,8 +151,8 @@ export default {
       this.newAlbum.image = this.post.image
     },
     sumit(){
+      // Przekierowanie do całej listy albumów MUSI znajdować się na końcu metody  upadateAlbum
       this.$store.dispatch('albumModule/updateAlbum', this.newAlbum)
-      this.$router.push('/Admin/AlbumEditList/')
     },
 
     cancel(){
@@ -195,7 +188,7 @@ export default {
 
       fileReader.readAsDataURL(files[0])
       this.newAlbum.image = files[0];
-      console.log('newAlbum: ', this.newAlbum)
+      //console.log('newAlbum: ', this.newAlbum)
       //var image = new Image();
       //image.src = this.post.image;
 

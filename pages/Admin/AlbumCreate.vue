@@ -143,7 +143,7 @@ export default {
 
     sumit(){
       this.$store.dispatch('albumModule/createNewAlbum', this.post)
-      this.$router.push('/Admin/AlbumEditList/')
+      
     },
 
     cancel(){

@@ -32,7 +32,9 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-
+import AlbumService from '@/services/AlbumService.js'
+//import { mapState } from 'vuex' 
+import axios from 'axios'
 
 export default {
   props: ['id'],
@@ -40,12 +42,15 @@ export default {
     //this.$store.dispatch('fetchEvent', this.id)
     //console.log('posts: ',this.post)
     this.chackIsImage()
+    //this.onCreate()
   },
   props:{
     post: Object,
     edit: true,
   },
+
   methods:{
+   
     editAlbum(){
       //console.log("Edit Album id: ", this.post.id) 
       this.$router.push('/Admin/Album/' + this.post.id)
@@ -56,7 +61,7 @@ export default {
       //this.$router.push('/Admin/Album/' + this.post.id)
     },
     chackIsImage(){
-      //console.log('Zawartość props:post = ', this.post)
+      
       if(this.post.image != null){
         if(this.post.image.key == null){
           this.post.image=this.album.image;
@@ -64,7 +69,10 @@ export default {
           throw 'Brak key zdjęcia: ', this.post.id; 
         }
         else{
-          this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg';
+          //this.$store
+          //console.log('this.post.image.key: ', this.post.image.key)
+          this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg'; // + new Date().getTime();
+
           //console.log('Klucz zdjęcia: ', this.image_src)
         }
       }

@@ -50,32 +50,17 @@ export const mutations = {
   },
 
   UPDATA_POST(state, newPost){
-    //console.log('UPDATA_POST: ')
-    //console.log('state.posts: ', sat)
-    //console.log('newPost: ', newPost.id)
-    //var oldPost = state.posts.find(post => post.id == newPost.id)
-    let i = 0
-    state.posts.forEach(post => function(){
-      i++
-      //console.log('post.id ', post.id)
-      //console.log('newPost.id', newPost.id)
-      if(post.id == newPost.id)
-      {
-        state.posts[i].set( newPost )
-        //console.log('Mam ', i);
-        return false;
-      }
-    });
-    console.log('state.posts: ', state.posts[i] )
-    //Vue.set(state.posts, state.posts.find(post => post.id == newPost.id), newPost)
-    //console.log('oldPost: ' , oldPost )
-    //console.log('oldPost: ', oldPost )
-    //oldPost = newPost
+    var idNewPost = 0
+    idNewPost = Number(newPost.id)
+    var index =  state.posts.findIndex(post => post.id == idNewPost)    
+    state.posts[index] = newPost 
+    
+    console.log('state.posts[index]: ' , state.posts[index] )
   },
 
   SET_ALBUM(state, album){
     state.album = album
-    console.log('SET_ALBUM: ', state.album)
+    //console.log('SET_ALBUM: ', state.album)
   },
 
   GET_POST_PAGE(){
@@ -91,6 +76,11 @@ export const mutations = {
       return el.id == id
     })
     state.posts.splice(newArray, 1);
+  },
+
+  CLEAR_POST(state, id){
+    var index =  state.posts.findIndex(post => post.id == idNewPost)
+    state.posts[index].image = ''
   }
 }
 
@@ -99,13 +89,14 @@ export const actions = {
     //console.log('Wartość nwego albumu: ', newAlbum)
     return AlbumService.storeAlbum(newAlbum)
         .then(response  => {
-          commit('ADD_POST', newAlbum)
+          commit('ADD_POST', response.data)
           const notification = {
             type: 'success',
             massege: 'Twój album został właśnie utworzony.'
           }
           dispatch('notification/add', notification, {root: true})
           console.log("SUKCES: udało się przekazać nowy albumu do API", response)
+          this.$router.push('/Admin/AlbumEditList/')
           //this.$router.push('/Admin/AlbumEditList/')
         })
         .catch(error => {
@@ -172,8 +163,11 @@ export const actions = {
       //   'SET_POSTS_TOTAL', //response.data.length
       //   parseInt(response.headers['x-total-count'])     
       // )
-      //console.log(response.data)
-      commit('SET_POST', response.data, page)   
+      //commit('CLEAR_POST', response.data.id)
+      console.log('response.data:', response.data)
+      commit('SET_POST', response.data, page)
+
+      this.$router.push('/Admin/AlbumEditList/')   
     })
     .catch(error => {
       console.log('There was an error:', error.response)
@@ -257,7 +251,7 @@ export const actions = {
     AlbumService.update(post)
      .then(response => {
        commit('UPDATA_POST', response.data)
-       //console.log('Dane:', response.data)
+
        const notification = {
         type: 'success',
         massege: 'Twój album został zaktualizowany.'
