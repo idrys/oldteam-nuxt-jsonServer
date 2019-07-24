@@ -4,7 +4,7 @@ import AlbumService from '@/services/AlbumService.js'
 export const namespaced = true
 
 export const state = {
-  album: {
+  albums: {
     id: 0,
       gallery: '',
       title: '',
@@ -38,7 +38,8 @@ export const state = {
 
 export const mutations = {
   ADD_POST(state, post) {
-    state.posts.push(post)
+    //state.posts.push(post) // wstawia na koniec tablicy
+    state.posts.unshift(post) // wstawia na początek tablicy
   },
   SET_POST(state, posts, page){
     state.posts = posts
@@ -55,7 +56,7 @@ export const mutations = {
     var index =  state.posts.findIndex(post => post.id == idNewPost)    
     state.posts[index] = newPost 
     
-    console.log('state.posts[index]: ' , state.posts[index] )
+    //console.log('state.posts[index]: ' , state.posts[index] )
   },
 
   SET_ALBUM(state, album){
@@ -156,7 +157,7 @@ export const actions = {
     })
 
     // Pobieram albumy 
-    AlbumService.getPosts(state.pagination.perPage, page)
+    AlbumService.getPosts(state.pagination.perPage, page  )
     .then(response => {
       // Przeniosłem do AlbumService.albumsCounter()
       // commit(
@@ -164,10 +165,11 @@ export const actions = {
       //   parseInt(response.headers['x-total-count'])     
       // )
       //commit('CLEAR_POST', response.data.id)
-      console.log('response.data:', response.data)
+      //console.log('response.data:', response.data)
+      
       commit('SET_POST', response.data, page)
-
-      this.$router.push('/Admin/AlbumEditList/')   
+      
+       // this.$router.push('/Admin/AlbumEditList/')   
     })
     .catch(error => {
       console.log('There was an error:', error.response)

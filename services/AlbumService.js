@@ -18,12 +18,14 @@ import axios from 'axios'
 
     export default {
 
+      //////////////////////////////////////////
       // Nie mogę za bardzo ingerować w tą funkcję zamieniając to np w Array bo zwaracana jest alians funkcji ( albo wskaźnik do funkcji) a nie Object.
       getPost(id) {  
         //return  apiClient('/posts?id=' + id) // PAMIĘTAJ o znaku zapytania !!
         return apiClient.get('/album/' + id)
       },
 
+      //////////////////////////////////////////
       getPosts(perPage, page){
         //return apiClient('/posts?_limit=' + perPage + '&_page=' + page)
         return apiClient('/posts/' + perPage + '/' + page )
@@ -31,6 +33,7 @@ import axios from 'axios'
 
       },
 
+      //////////////////////////////////////////
       storeAlbum(album){
         //console.log("Album: ", album )
         let formData = new FormData();
@@ -42,10 +45,11 @@ import axios from 'axios'
         return apiClient.post('/album',  formData ) 
       },
 
+      //////////////////////////////////////////
       albumsCounter(){
         return apiClient.get('/posts')
       },
-      
+      //////////////////////////////////////////
       delete(id){
         // axios.defaults.headers.common = {
         //   'X-Requested-With': 'XMLHttpRequest',
@@ -59,6 +63,7 @@ import axios from 'axios'
         return apiClient.delete('/album/' + id)  
       },
 
+      //////////////////////////////////////////
       update(album){
         // return jest niezbędny bo przekazuję alians do funkcji
         // dzięki temu mogę wykorzystywać .then i .cache
@@ -72,6 +77,7 @@ import axios from 'axios'
         return apiClient.post('/album/'+ album.id, formData)
       },
       
+      //////////////////////////////////////////
       uploadImage(file){
 
         let formData = new FormData();
