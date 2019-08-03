@@ -17,7 +17,7 @@ const store = () => new Vuex.Store({
   },
 
   state: {
-    posts: [],
+    albums: [],
   }
 
 })

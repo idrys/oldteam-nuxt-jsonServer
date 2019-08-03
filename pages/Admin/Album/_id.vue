@@ -5,7 +5,7 @@
          
       <v-card >
         <AlbumEdit
-          :post =   getAlbum(this.$route.params.id)
+          :album =   getAlbum(this.$route.params.id)
           ></AlbumEdit>
       </v-card>
   </div>
@@ -14,7 +14,7 @@
 import AlbumEdit from '@/components/Admin/AlbumEdit.vue'
 import Album from '~/components/Album.vue'
 import {mapState, mapGetters} from 'vuex'
-//albumModule.posts[0]
+//albumModule.albums[0]
 export default {
 
   data() {
@@ -48,7 +48,7 @@ export default {
 
   methods:{
      getAlbum(id) {
-        return this.$store.state.albumModule.posts.find(post => post.id == id)
+        return this.$store.state.albumModule.albums.find(album => album.id == id)
       }
   }
 }

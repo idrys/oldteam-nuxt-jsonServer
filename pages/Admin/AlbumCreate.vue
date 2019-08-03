@@ -5,25 +5,25 @@
          <v-card class="elevation-10 transparent">
 
         <v-card-text class="text-xs-center">
-         <v-img class="white--text elevation-3"  height="170px" :src="post.imgUrl" ></v-img> 
-         <!--  :src="require('~/assets/img/' + post.imgUrl)"  -->
+         <v-img class="white--text elevation-3"  height="170px" :src="album.imgUrl" ></v-img> 
+         <!--  :src="require('~/assets/img/' + album.imgUrl)"  -->
         
         <v-flex xs12 align-end d-flex>
           
-                <span class="headline" v-show="post.title==''">Tytuł</span>
-                <span class="headline" v-show="post.title">{{post.title}}</span>
+                <span class="headline" v-show="album.title==''">Tytuł</span>
+                <span class="headline" v-show="album.title">{{album.title}}</span>
         </v-flex>
-            <p v-show="post.content==''">Opis</p>
-            <p v-show="post.content">{{post.content}}</p>
+            <p v-show="album.content==''">Opis</p>
+            <p v-show="album.content">{{album.content}}</p>
         </v-card-text>
 
         <v-card-actions>
-            <p v-show="post.raport">
+            <p v-show="album.raport">
               <v-btn flat  class="blue--text">Sprawozdanie</v-btn>
             </p>
             <!-- <v-btn color="warning" >Opis</v-btn> -->
             <v-spacer></v-spacer>
-            <p v-show="post.gallery">
+            <p v-show="album.gallery">
               <v-btn flat  class="blue--text" >Zobacz więcej</v-btn>
             </p>
         </v-card-actions>
@@ -46,7 +46,7 @@
       <v-card-text class="text-xs-center">
         <v-text-field 
           label="Ścieka do zdjęcia"
-          v-model="post.imgUrl"
+          v-model="album.imgUrl"
           >
         </v-text-field>
 
@@ -60,18 +60,18 @@
         
         <v-text-field 
           label="Tytuł"
-          v-model="post.title"
+          v-model="album.title"
           >
         </v-text-field>
         <v-text-field 
           label="Opis"
-          v-model="post.content"
+          v-model="album.content"
           >
         </v-text-field>
          
         <v-text-field           
           label="Ścieka do galerii"
-          v-model="post.gallery"
+          v-model="album.gallery"
           >
         </v-text-field>
          
@@ -117,9 +117,9 @@ export default {
   created() {
     // AlbumService.getPosts()
     //   .then(response => {
-    //     this.posts =  response.data 
+    //     this.albums =  response.data 
     //     // Jeśli ładuje tylko jeden element to:
-    //     //this.posts.push (response.data) 
+    //     //this.albums.push (response.data) 
     //   })
     //   .catch(error => {
     //     console.log('There was an error:', error.response)
@@ -127,7 +127,7 @@ export default {
   },
   data: ()=>({
     file: '',
-    post: {
+    album: {
       id: 0,
       gallery: '/sciezka/do/galeri/',
       title: 'Tytuł testowy',
@@ -142,7 +142,7 @@ export default {
   methods: {
 
     sumit(){
-      this.$store.dispatch('albumModule/createNewAlbum', this.post)
+      this.$store.dispatch('albumModule/createNewAlbum', this.album)
       
     },
 
@@ -172,15 +172,15 @@ export default {
       const fileReader = new FileReader()
       fileReader.addEventListener('load', ()=>{
         //console.log('Wykonuje: addEventListener ')
-        this.post.imgUrl = fileReader.result
-      //console.log('this.post.imgUrl: ', this.post.imgUrl)
+        this.album.imgUrl = fileReader.result
+      //console.log('this.album.imgUrl: ', this.album.imgUrl)
 
       })
       fileReader.readAsDataURL(files[0])
-      this.post.image = files[0];
+      this.album.image = files[0];
     
       //var image = new Image();
-      //image.src = this.post.image;
+      //image.src = this.album.image;
 
       
 
@@ -190,10 +190,10 @@ export default {
       // const fileReader = new FileReader()
       // fileReader.addEventListener('load', ()=>{
 
-      //   this.post.imgUrl = fileReader.result
+      //   this.album.imgUrl = fileReader.result
       // })
       // fileReader.readAsDataURL(files[0])
-      // this.post.image = files[0]
+      // this.album.image = files[0]
 
       // const config = {
       //     headers: { 'content-type': 'multipart/form-data' }
@@ -202,7 +202,7 @@ export default {
       //let formData = new FormData();
       //formData.append('image', this.image);
 
-      // axios.post('http://127.0.0.1:8000/api/formSubmit', files[0], config)
+      // axios.album('http://127.0.0.1:8000/api/formSubmit', files[0], config)
       // .then(function (response) {
       //     currentObj.success = response.data.success;
       // })

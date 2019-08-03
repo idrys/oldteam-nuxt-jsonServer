@@ -30,7 +30,7 @@ export default {
       body: 
         `
           <br />
-          <div class="subheading"><p>Chciałbym podzielić się ze swoimi spostrzeżeniami z kolejnego wyjazdu, może tym razem będzie bardziej poważnie, bo i może na tym wyjeździe więcej było zadumy niż wódki.
+          <div class="subheading"><p>Chciałbym podzielić się ze swoimi salbumrzeżeniami z kolejnego wyjazdu, może tym razem będzie bardziej poważnie, bo i może na tym wyjeździe więcej było zadumy niż wódki.
           <br />
           <br />
           </p>

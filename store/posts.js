@@ -1,16 +1,16 @@
 import EventService from '@/services/AlbumService.js'
     export const state = () => ({
-      posts: [],
-      post: {}
+      albums: [],
+      album: {}
     })
     export const mutations = {
       ADD_POST(state, event) {
-        state.posts.push(event)
+        state.albums.push(event)
       },
     }
     export const actions = {
       createEvent({ commit }, event) {
-        EventService.postEvent(event)
+        EventService.albumEvent(event)
         commit('ADD_EVENT', event)
       }
     }

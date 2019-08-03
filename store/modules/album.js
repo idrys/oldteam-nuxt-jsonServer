@@ -4,7 +4,7 @@ import AlbumService from '@/services/AlbumService.js'
 export const namespaced = true
 
 export const state = {
-  albums: {
+  albums: [{
     id: 0,
       gallery: '',
       title: '',
@@ -14,18 +14,18 @@ export const state = {
       image: {
         key: 'albumtmp'
       }
-  },
-  posts: [{
-    id: 0,
-      gallery: '/sciezka/do/galeri/',
-      title: 'Tytuł testowy',
-      content: 'Opis',
-      imgUrl: 'BenNevis.jpg',
-      raport: 'opis długi',
-      image: {
-        key: 'albumtmp'
-      }
   }],
+  // albums: [{
+  //   id: 0,
+  //     gallery: '/sciezka/do/galeri/',
+  //     title: 'Tytuł testowy',
+  //     content: 'Opis',
+  //     imgUrl: 'BenNevis.jpg',
+  //     raport: 'opis długi',
+  //     image: {
+  //       key: 'albumtmp'
+  //     }
+  // }],
   pagination: {
     descending: true,
     page: 1,
@@ -37,26 +37,26 @@ export const state = {
 }
 
 export const mutations = {
-  ADD_POST(state, post) {
-    //state.posts.push(post) // wstawia na koniec tablicy
-    state.posts.unshift(post) // wstawia na początek tablicy
+  ADD_POST(state, album) {
+    //state.albums.push(album) // wstawia na koniec tablicy
+    state.albums.unshift(album) // wstawia na początek tablicy
   },
-  SET_POST(state, posts, page){
-    state.posts = posts
+  SET_POST(state, albums, page){
+    state.albums = albums
     this.state.pagination.page = page
   },
-  SET_POST(state, posts){
-    //console.log(posts)
-    state.posts = posts
+  SET_POST(state, albums){
+    //console.log(albums)
+    state.albums = albums
   },
 
   UPDATA_POST(state, newPost){
     var idNewPost = 0
     idNewPost = Number(newPost.id)
-    var index =  state.posts.findIndex(post => post.id == idNewPost)    
-    state.posts[index] = newPost 
+    var index =  state.albums.findIndex(album => album.id == idNewPost)    
+    state.albums[index] = newPost 
     
-    //console.log('state.posts[index]: ' , state.posts[index] )
+    //console.log('state.albums[index]: ' , state.albums[index] )
   },
 
   SET_ALBUM(state, album){
@@ -73,15 +73,15 @@ export const mutations = {
   },
 
   DELETE_POST(state, id){
-    var newArray = state.posts.filter(function(el){
+    var newArray = state.albums.filter(function(el){
       return el.id == id
     })
-    state.posts.splice(newArray, 1);
+    state.albums.splice(newArray, 1);
   },
 
   CLEAR_POST(state, id){
-    var index =  state.posts.findIndex(post => post.id == idNewPost)
-    state.posts[index].image = ''
+    var index =  state.albums.findIndex(album => album.id == idNewPost)
+    state.albums[index].image = ''
   }
 }
 
@@ -247,10 +247,10 @@ export const actions = {
  ///-----------------------------------------------------------------------------
  
 
-  updateAlbum({commit, getters, dispatch}, post) {
-    //console.log('id= ' + post.id)
-     //console.log('post: ', post.title)
-    AlbumService.update(post)
+  updateAlbum({commit, getters, dispatch}, album) {
+    //console.log('id= ' + album.id)
+     //console.log('album: ', album.title)
+    AlbumService.update(album)
      .then(response => {
        commit('UPDATA_POST', response.data)
 
@@ -277,13 +277,13 @@ export const actions = {
 export const getters = {
   getAlbumById: state => id => {
     //var album = 0
-    //console.log('Liczba elementów w tablicy posts: ', state.posts.length)
-    // state.posts.find(post => post.id === id)
-     console.log('Album getAlbumById: ', state.posts.find(post => post.id === id))
-    return state.posts.find(post => post.id == id)
+    //console.log('Liczba elementów w tablicy albums: ', state.albums.length)
+    // state.albums.find(album => album.id === id)
+     console.log('Album getAlbumById: ', state.albums.find(album => album.id === id))
+    return state.albums.find(album => album.id == id)
   },
   getAlbum: state => {
-    return state.posts[0];
+    return state.albums[0];
   },
   pagin: state => {
      return state.pagination

@@ -6,7 +6,7 @@
 
         <v-card-text class="text-xs-center">
          <v-img class="white--text elevation-3"  height="170px" :src="newAlbum.imgUrl" ></v-img> 
-         <!--  :src="require('~/assets/img/' + post.imgUrl)"  -->
+         <!--  :src="require('~/assets/img/' + album.imgUrl)"  -->
         
         <v-flex xs12 align-end d-flex>
           
@@ -119,7 +119,7 @@ export default {
   },
 
   props:{
-    post: Object
+    album: Object
   },
 
   data: ()=>({
@@ -140,15 +140,15 @@ export default {
   methods: {
     onCreate(){
       //console.log('Album: ', this.album)
-      //console.log('Post: ', this.post)
-      this.newAlbum.imgUrl = 'http://localhost:8000/images/' + this.post.image.key + '.' + this.post.image.ext + '#' + new Date().getTime();
+      //console.log('Post: ', this.album)
+      this.newAlbum.imgUrl = 'http://localhost:8000/images/' + this.album.image.key + '.' + this.album.image.ext + '#' + new Date().getTime();
       //console.log('this.newAlbum.imgUrl: ', this.newAlbum.imgUrl)
-      this.newAlbum.id = this.post.id
-      this.newAlbum.title = this.post.title
-      this.newAlbum.content = this.post.content
-      this.newAlbum.gallery = this.post.gallery
-      this.newAlbum.raport = this.post.raport
-      this.newAlbum.image = this.post.image
+      this.newAlbum.id = this.album.id
+      this.newAlbum.title = this.album.title
+      this.newAlbum.content = this.album.content
+      this.newAlbum.gallery = this.album.gallery
+      this.newAlbum.raport = this.album.raport
+      this.newAlbum.image = this.album.image
     },
     sumit(){
       // Przekierowanie do całej listy albumów MUSI znajdować się na końcu metody  upadateAlbum
@@ -182,7 +182,7 @@ export default {
       fileReader.addEventListener('load', ()=>{
         //console.log('Wykonuje: addEventListener ')
         this.newAlbum.imgUrl = fileReader.result
-      //console.log('this.post.imgUrl: ', this.post.imgUrl)
+      //console.log('this.album.imgUrl: ', this.album.imgUrl)
 
       })
 
@@ -190,7 +190,7 @@ export default {
       this.newAlbum.image = files[0];
       //console.log('newAlbum: ', this.newAlbum)
       //var image = new Image();
-      //image.src = this.post.image;
+      //image.src = this.album.image;
 
       
 
@@ -200,10 +200,10 @@ export default {
       // const fileReader = new FileReader()
       // fileReader.addEventListener('load', ()=>{
 
-      //   this.post.imgUrl = fileReader.result
+      //   this.album.imgUrl = fileReader.result
       // })
       // fileReader.readAsDataURL(files[0])
-      // this.post.image = files[0]
+      // this.album.image = files[0]
 
       // const config = {
       //     headers: { 'content-type': 'multipart/form-data' }
@@ -212,7 +212,7 @@ export default {
       //let formData = new FormData();
       //formData.append('image', this.image);
 
-      // axios.post('http://127.0.0.1:8000/api/formSubmit', files[0], config)
+      // axios.album('http://127.0.0.1:8000/api/formSubmit', files[0], config)
       // .then(function (response) {
       //     currentObj.success = response.data.success;
       // })

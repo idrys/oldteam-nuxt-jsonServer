@@ -15,15 +15,15 @@
          <!-- :src="imgUrl" -->
         
         <v-flex xs12 align-end d-flex>
-                <span class="headline">{{ post.title }}</span>
+                <span class="headline">{{ album.title }}</span>
         </v-flex>
-            {{ post.content }}
+            {{ album.content }}
         </v-card-text>
 
         <v-card-actions>
-            <v-btn color="warning"  v-show="post.opis" @click="opis=opis">Opis</v-btn>
+            <v-btn color="warning"  v-show="album.opis" @click="opis=opis">Opis</v-btn>
             <v-spacer></v-spacer>
-            <v-btn flat class="blue--text" v-bind:href="post.gallery">Zobacz więcej</v-btn>
+            <v-btn flat class="blue--text" v-bind:href="album.gallery">Zobacz więcej</v-btn>
         </v-card-actions>
 
     </v-card>
@@ -40,39 +40,39 @@ export default {
   props: ['id'],
   created() {
     //this.$store.dispatch('fetchEvent', this.id)
-    //console.log('posts: ',this.post)
+    //console.log('albums: ',this.album)
     this.chackIsImage()
     //this.onCreate()
   },
   props:{
-    post: Object,
+    album: Object,
     edit: true,
   },
 
   methods:{
    
     editAlbum(){
-      //console.log("Edit Album id: ", this.post.id) 
-      this.$router.push('/Admin/Album/' + this.post.id)
+      //console.log("Edit Album id: ", this.album.id) 
+      this.$router.push('/Admin/Album/' + this.album.id)
     },
     deleteAlbum(){
-      //console.log("Delete Album id: ", this.post.id) 
-      //console.log(this.post.id)
-      this.$store.dispatch('albumModule/deleteAlbum', this.post.id)
-      //this.$router.push('/Admin/Album/' + this.post.id)
+      //console.log("Delete Album id: ", this.album.id) 
+      //console.log(this.album.id)
+      this.$store.dispatch('albumModule/deleteAlbum', this.album.id)
+      //this.$router.push('/Admin/Album/' + this.album.id)
     },
     chackIsImage(){
       
-      if(this.post.image != null){
-        if(this.post.image.key == null){
-          this.post.image=this.album.image;
-          console.log('Brak key zdjęcia: ', this.post.id ); 
-          throw 'Brak key zdjęcia: ', this.post.id; 
+      if(this.album.image != null){
+        if(this.album.image.key == null){
+          this.album.image=this.album.image;
+          console.log('Brak key zdjęcia: ', this.album.id ); 
+          throw 'Brak key zdjęcia: ', this.album.id; 
         }
         else{
           //this.$store
-          //console.log('this.post.image.key: ', this.post.image.key)
-          this.image_src = 'http://localhost:8000/images/' + this.post.image.key + '.jpg'; // + new Date().getTime();
+          //console.log('this.album.image.key: ', this.album.image.key)
+          this.image_src = 'http://localhost:8000/images/' + this.album.image.key + '.jpg'; // + new Date().getTime();
 
           //console.log('Klucz zdjęcia: ', this.image_src)
         }

@@ -21,15 +21,15 @@ import axios from 'axios'
       //////////////////////////////////////////
       // Nie mogę za bardzo ingerować w tą funkcję zamieniając to np w Array bo zwaracana jest alians funkcji ( albo wskaźnik do funkcji) a nie Object.
       getPost(id) {  
-        //return  apiClient('/posts?id=' + id) // PAMIĘTAJ o znaku zapytania !!
+        //return  apiClient('/albums?id=' + id) // PAMIĘTAJ o znaku zapytania !!
         return apiClient.get('/album/' + id)
       },
 
       //////////////////////////////////////////
       getPosts(perPage, page){
-        //return apiClient('/posts?_limit=' + perPage + '&_page=' + page)
-        return apiClient('/posts/' + perPage + '/' + page )
-        //return apiClient('posts?_sort=id&_order=desc' + '&_limit=' + perPage + '&_page=' + page)
+        //return apiClient('/albums?_limit=' + perPage + '&_page=' + page)
+        return apiClient('/albums/' + perPage + '/' + page )
+        //return apiClient('albums?_sort=id&_order=desc' + '&_limit=' + perPage + '&_page=' + page)
 
       },
 
@@ -42,12 +42,12 @@ import axios from 'axios'
           formData.set(key, album[key])
           //console.log(key + ' = ' + album[key]);
        });
-        return apiClient.post('/album',  formData ) 
+        return apiClient.album('/album',  formData ) 
       },
 
       //////////////////////////////////////////
       albumsCounter(){
-        return apiClient.get('/posts')
+        return apiClient.get('/albums')
       },
       //////////////////////////////////////////
       delete(id){
@@ -74,7 +74,7 @@ import axios from 'axios'
           //console.log(key + ' = ' + album[key]);
        });
        formData.append('_method', 'PUT');
-        return apiClient.post('/album/'+ album.id, formData)
+        return apiClient.album('/album/'+ album.id, formData)
       },
       
       //////////////////////////////////////////
@@ -83,7 +83,7 @@ import axios from 'axios'
         let formData = new FormData();
         formData.set('image', file)
         //console.log('file: ', formData,)
-        return apiClient.post('/uploadImage', formData)
+        return apiClient.album('/uploadImage', formData)
 
       //   console.log('Licza elementów: ', Object.keys(album).length)
 
@@ -91,7 +91,7 @@ import axios from 'axios'
       //     console.log(key + ' = ' + album[key]);
       //  });
 
-      //   return apiClient.post('/uploadImage', formData)
+      //   return apiClient.album('/uploadImage', formData)
       }
 
       // $this->validate($request, array(
