@@ -252,6 +252,7 @@ export const actions = {
      //console.log('album: ', album.title)
     AlbumService.update(album)
      .then(response => {
+       console.log('Po')
        commit('UPDATA_POST', response.data)
 
        const notification = {
@@ -262,12 +263,13 @@ export const actions = {
       this.$router.push('/Admin/AlbumEditList/')
      })
      .catch(error => {
-       console.log('There was an error:', error.response)
+       console.log('Wystąpił błąd podczas aktualizacji danych w bazie:', error.response)
        const notification = {
-        type: 'success',
-        massege: 'Wystąpił problem z aktualizacją alubumu. ' + error.response
+        type: 'error',
+        massege: 'Wystąpił problem z aktualizacją albumu. '
       }
       dispatch('notification/add', notification, {root: true})
+      this.$router.push('/Admin/AlbumEditList/')
      })
   },
 ///-----------------------------------------------------------------------------

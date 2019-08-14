@@ -9,12 +9,12 @@ import axios from 'axios'
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
         "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
-        "Access-Control-Allow-Credentials" : "true"
+        "Access-Control-Allow-Credentials" : "true",
+        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM'  
       }
     })
     // 'Content-Type': 'application/json',
     // 'application/json',
-    // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM'  
 
     export default {
 
@@ -42,7 +42,7 @@ import axios from 'axios'
           formData.set(key, album[key])
           //console.log(key + ' = ' + album[key]);
        });
-        return apiClient.album('/album',  formData ) 
+        return apiClient.post('/album',  formData ) 
       },
 
       //////////////////////////////////////////
@@ -72,9 +72,10 @@ import axios from 'axios'
         Object.keys(album).forEach(function(key){
           formData.set(key, album[key])
           //console.log(key + ' = ' + album[key]);
-       });
-       formData.append('_method', 'PUT');
-        return apiClient.album('/album/'+ album.id, formData)
+        });
+        formData.append('_method', 'PUT');
+        console.log('Przed post')
+        return apiClient.post('/album/'+ album.id, formData)
       },
       
       //////////////////////////////////////////
@@ -83,7 +84,7 @@ import axios from 'axios'
         let formData = new FormData();
         formData.set('image', file)
         //console.log('file: ', formData,)
-        return apiClient.album('/uploadImage', formData)
+        return apiClient.post('/uploadImage', formData)
 
       //   console.log('Licza elementów: ', Object.keys(album).length)
 
