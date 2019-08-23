@@ -46,6 +46,20 @@ import axios from 'axios'
       },
 
       //////////////////////////////////////////
+      storeArticle(article){
+
+        let formData = new FormData();
+        
+        Object.keys(article).forEach(function(key){
+          formData.set(key, article[key])
+        });
+        //formData.append('_method', 'POST');
+        //console.log(formData[0])
+        return apiClient.post('/article',  formData ) 
+      },
+      //////////////////////////////////////////
+
+
       albumsCounter(){
         return apiClient.get('/albums')
       },
@@ -74,7 +88,7 @@ import axios from 'axios'
           //console.log(key + ' = ' + album[key]);
         });
         formData.append('_method', 'PUT');
-        console.log('Przed post')
+        //console.log('Przed post')
         return apiClient.post('/album/'+ album.id, formData)
       },
       

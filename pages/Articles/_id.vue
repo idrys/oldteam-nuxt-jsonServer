@@ -9,6 +9,33 @@
             <div class="title mb-3"><p>Szczyt</p></div>
 
           <div v-html="body"> </div>
+
+<!--
+          <editor-floating-menu :editor="editor" v-slot="{ commands, isActive, menu }">
+              <div
+                :class="{ 'is-active': menu.isActive }"
+                :style="`top: ${menu.top}px`"
+              >
+                <v-btn :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
+                  Bold
+                </v-btn>
+                <v-btn :class="{ 'is-active': isActive.code() }" @click="commands.code">
+                  Code
+                </v-btn>
+                <v-btn :class="{ 'is-active': isActive.code_block() }" @click="commands.code_block">
+                  CodeBlock
+                </v-btn>
+
+              </div>
+            </editor-floating-menu>
+-->
+            <SWEditor></SWEditor>
+
+            
+
+
+
+
           <v-btn
             class="mx-0"
             color="primary"
@@ -23,13 +50,103 @@
 </template>
 
 <script>
+import SWEditor from '~/components/Articles/Editor.vue'
+
+import { Editor, EditorContent, EditorMenuBar, EditorFloatingMenu } from 'tiptap'
+import {
+  Blockquote,
+  CodeBlock,
+  HardBreak,
+  Heading,
+  HorizontalRule,
+  OrderedList,
+  BulletList,
+  ListItem,
+  TodoItem,
+  TodoList,
+  Bold,
+  Code,
+  Italic,
+  Link,
+  Strike,
+  Underline,
+  History,
+} from 'tiptap-extensions'
+
 export default {
+  components: {
+    EditorContent,
+    EditorMenuBar,
+    EditorFloatingMenu,
+    SWEditor,
+  },
+  mounted() {
+    this.editor = new Editor({
+      extensions: [
+         new Blockquote(),
+          new BulletList(),
+          new CodeBlock(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new HorizontalRule(),
+          new ListItem(),
+          new OrderedList(),
+          new TodoItem(),
+          new TodoList(),
+          new Link(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Strike(),
+          new Underline(),
+          new History(),
+        ],
+      content: '<p>Tekst testowy</p>',
+      
+      onUpdate: ({ getJSON, getHTML }) => {
+          this.json = getJSON()
+          this.html = getHTML()
+      },
+
+    })
+  },
+
+  beforeDestroy() {
+    this.editor.destroy()
+  },
+
+  methods: {
+
+    save(){
+      console.log('Test', this.html);
+  }
+  },
   //http://localhost:3000/Articles/1
   data (){
     return{
+      dropdown_font: [
+          { text: 'Arial' },
+          { text: 'Calibri' },
+          { text: 'Courier' },
+          { text: 'Verdana' },
+        ],
+        dropdown_edit: [
+          { text: '100%' },
+          { text: '75%' },
+          { text: '50%' },
+          { text: '25%' },
+          { text: '0%' },
+        ],
+        toggle_exclusive: 2,
+        toggle_multiple: [1, 2, 3],
+      
+      editor: null,
+      json: 'Update content to see changes',
+      html: 'Update content to see changes',
       body: 
         `
           <br />
+          
           <div class="subheading"><p>Chciałbym podzielić się ze swoimi salbumrzeżeniami z kolejnego wyjazdu, może tym razem będzie bardziej poważnie, bo i może na tym wyjeździe więcej było zadumy niż wódki.
           <br />
           <br />
@@ -130,3 +247,130 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.editor {
+  position: relative;
+  max-width: 30rem;
+  margin: 0 auto 5rem auto;
+
+  &__content {
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    * {
+      caret-color: currentColor;
+    }
+
+    
+
+    pre {
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      
+      font-size: 0.8rem;
+      overflow-x: auto;
+
+      code {
+        display: block;
+        white-space: pre-wrap;
+        font-size: 16px;
+      }
+    }
+
+    p code {
+      display: inline-block;
+      padding: 0 0.4rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: italic;
+
+    }
+
+    ul,
+    ol {
+      padding-left: 1rem;
+    }
+
+    li > p,
+    li > ol,
+    li > ul {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    blockquote {
+      
+      padding-left: 0.8rem;
+      font-style: italic;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+    }
+
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+
+      td, th {
+        min-width: 1em;
+        
+        padding: 3px 5px;
+        vertical-align: top;
+        box-sizing: border-box;
+        position: relative;
+        > * {
+          margin-bottom: 0;
+        }
+      }
+
+      th {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .selectedCell:after {
+        z-index: 2;
+        position: absolute;
+        content: "";
+        left: 0; right: 0; top: 0; bottom: 0;
+        background: rgba(200, 200, 255, 0.4);
+        pointer-events: none;
+      }
+
+      .column-resize-handle {
+        position: absolute;
+        right: -2px; top: 0; bottom: 0;
+        width: 4px;
+        z-index: 20;
+        background-color: #adf;
+        pointer-events: none;
+      }
+    }
+
+    .tableWrapper {
+      margin: 1em 0;
+      overflow-x: auto;
+    }
+
+    .resize-cursor {
+      cursor: ew-resize;
+      cursor: col-resize;
+    }
+
+  }
+}
+</style>
