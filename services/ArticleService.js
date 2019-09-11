@@ -19,11 +19,22 @@ import axios from 'axios'
     export default {
        //////////////////////////////////////////
       // Nie mogę za bardzo ingerować w tą funkcję zamieniając to np w Array bo zwaracana jest alians funkcji ( albo wskaźnik do funkcji) a nie Object.
+      
       getArticle(id) {  
         //return  apiClient('/albums?id=' + id) // PAMIĘTAJ o znaku zapytania !!
         return apiClient.get('/article/' + id)
-      },
+      }, ////////////////////////////////////////////////////////////////////////////////////
+      
+      articlesCounter(){
+        return apiClient.get('/articles')
+      }, ////////////////////////////////////////////////////////////////////////////////////
+      
+      /* getArticles(perPage, page){ */
+      getArticles(perPage, page){
+        return apiClient('/articles/' + perPage + '/' + page )
+      }, ////////////////////////////////////////////////////////////////////////////////////
 
+      
       storeArticle(article){
 
         if (Array.isArray(article))
@@ -36,8 +47,6 @@ import axios from 'axios'
         });
 
         return apiClient.post('/article',  formData ) 
-      },
-
-      //////////////////////////////////////////
+      }, ////////////////////////////////////////////////////////////////////////////////////
 
     }

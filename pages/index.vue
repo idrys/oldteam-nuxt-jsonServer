@@ -18,6 +18,8 @@ import store from '~/store/index.js'
 import Vuex from 'vuex'
 import { mapState, mapGetters } from 'vuex' 
 
+import Vue from 'vue';
+ //window.Vue = Vue;
 
 export default {
   data: {

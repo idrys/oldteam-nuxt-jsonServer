@@ -1,14 +1,50 @@
 <template>
-<div>
+<div class="pa-2" >
+  <v-container fluid>
+    <v-layout justify-center>
+    <v-card md="3"
+        class="pa-2" justify-center>
+      
+          <v-img 
+            :src=articleProp.image            
+            width="700"
+          >
+        </v-img>
+        
+    </v-card>
+    </v-layout>
+  </v-container>
+<v-container fluid>
+      <v-layout justify-center > 
+        <v-card md="3" color="#fafafa" flat class="pa-2" justify-center max-width="750">
+
+        <br>
+        <v-text-field
+                   
+            label="Zdjęcie"
+            required
+            v-model='articleProp.image'
+          ></v-text-field>
+          <!-- <v-file-input label="File input" v-model='articleProp.image'></v-file-input> -->
+  
+  
+  <br>
+  <v-text-field
+            class="display-1"        
+            label="Tytuł"
+            required
+            v-model=articleProp.title
+          ></v-text-field>
+          <br>
+  <v-text-field  
+            label="Podtytuł"
+            required
+            v-model=articleProp.subtitle
+          ></v-text-field>
+  <br>
 
   <editor-floating-menu :editor="editor" v-slot="{ commands, isActive, menu }">
     <v-toolbar dense >
-      <v-overflow-btn
-        :items="dropdown_font"
-        label="Select font"
-        hide-details
-        class="pa-0"
-      ></v-overflow-btn>
 
       <template >
         <v-divider vertical></v-divider>
@@ -33,6 +69,10 @@
         >
           <v-btn :value="1" text @click="commands.bold">
             <v-icon>format_bold</v-icon>
+          </v-btn>
+          
+          <v-btn class="menubar__button" @click="showImagePrompt(commands.image)" >
+            <v-icon>image</v-icon>
           </v-btn>
 
           <v-btn :value="2" text @click="commands.italic">
@@ -82,11 +122,14 @@
     </v-toolbar>
   </editor-floating-menu>
 
-  <v-card>
-    <v-card-text>   
-      <editor-content class="editor__content" :editor="editor" />
-    </v-card-text>
-  </v-card>
+  <!-- <v-card>
+    <v-card-text>    -->
+    <div class="editor">
+
+    <editor-content class="myFonts editor__content" :editor="editor" />
+      </div>
+    <!-- </v-card-text>
+  </v-card> -->
   
   <div>
     <br />
@@ -96,20 +139,25 @@
     </div>
     <br />
   </div>
-
+        </v-card>
+      </v-layout>
+</v-container>
   <v-btn @click="sumit">Save</v-btn>
+  <v-btn @click="preview">Podgląd</v-btn>
 
 </div>
 
 </template>
 <script>
 //import Icon from 'Components/Icon'
+import SWView from '@/components/Articles/View.vue'
 import ArticleService from '@/services/ArticleService.js'
 import AlbumService from '@/services/AlbumService.js'
 import { mapState } from 'vuex' 
 import axios from 'axios'
 
-import { Editor, EditorContent, EditorMenuBar, EditorFloatingMenu } from 'tiptap'
+//import Icon from 'Components/Icon'
+import { Editor, EditorContent, EditorMenuBar, EditorFloatingMenu, EditorMenuBubble} from 'tiptap'
 import {
   Blockquote,
   CodeBlock,
@@ -128,15 +176,23 @@ import {
   Strike,
   Underline,
   History,
+  Image,
 } from 'tiptap-extensions'
 
 export default {
+  props:{
+    articleProp: Object
+  },
+
   components: {
     EditorContent,
     EditorMenuBar,
     EditorFloatingMenu,
+    //EditorMenuBubble,
     ArticleService,
-    AlbumService
+    AlbumService,
+  
+    SWView
   },
   computed: mapState(['articleModule']),
 
@@ -160,36 +216,59 @@ export default {
           new Strike(),
           new Underline(),
           new History(),
+          new Image(),
         ],
-      content: '<p>Tekst testowy</p>',
+      content: "test",
       
       onUpdate: ({ getJSON, getHTML }) => {
           this.json = getJSON()
           this.html = getHTML()
           this.article.body = this.html
+          //this.test
       },
 
-    })
+    }),
+    this.editor.setContent(this.articleProp.body)
   },
 
   beforeDestroy() {
     this.editor.destroy()
+    console.log('Test')
   },
 
   methods: {
     sumit(){
-      //console.log('Save text: ', this.html);
-      this.$store.dispatch('articleModule/createNewArticle', this.article)   
+      console.log('Save text: ', this.editor);
+         
+    },
+    preview(){
+
+      
+      this.$router.push('/Articles/Preview/1')
+    },
+
+    dialogImg(){
+      console.log('Nowe !!')
+    },
+    
+    showImagePrompt(command) {
+      const src = prompt('Enter the url of your image here')
+      if (src !== null) {
+        command({ src })
+      }
     },
   },
 
   data (){
     return{
+      keepInBounds: true,
       article: {
           id: 0,
-          title: 'test',
-          body: 'Testujemy body pieprzonej zmiennej',
+          title: this.articleProp.title,
+          body: this.articleProp.body,
+          //image: this.articleProp.image,
         },
+        test: this.articleProp,
       dropdown_font: [
           { text: 'Arial' },
           { text: 'Calibri' },
@@ -214,135 +293,46 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Questrial");
 
-<style lang="scss" scoped>
-html {
-    font-size: 18px;
-  }
+.display-2 {
+  font-family:'Times New Roman', sans-serif !important;
+};
 
-.editor {
-  position: relative;
-  max-width: 30rem;
-  margin: 0 auto 5rem auto;
-  
-  
+.display-1 {
+  font-family:'Times New Roman', sans-serif !important;
+};
 
-  &__content {
-
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-
-    * {
-      caret-color: currentColor;
-    }
-
-    pre {
-      padding: 0.7rem 1rem;
-      border-radius: 5px;
-      
-      font-size: 16px;
-      overflow-x: auto;
-
-      code {
-        display: block;
-        white-space: pre-wrap;
-        font-size: 16px;
-      }
-    }
-
-    p code {
-      display: inline-block;
-      padding: 0 0.4rem;
-      border-radius: 5px;
-      font-size: 16px;
-      font-weight: italic;
-
-    }
-
-    ul,
-    ol {
-      padding-left: 1rem;
-    }
-
-    li > p,
-    li > ol,
-    li > ul {
-      margin: 0;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    blockquote {
-      
-      padding-left: 0.8rem;
-      font-style: italic;
-
-      p {
-        margin: 0;
-      }
-    }
-
-    img {
-      max-width: 100%;
-      border-radius: 3px;
-    }
-
-    table {
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
-      margin: 0;
-      overflow: hidden;
-
-      td, th {
-        min-width: 1em;
-        
-        padding: 3px 5px;
-        vertical-align: top;
-        box-sizing: border-box;
-        position: relative;
-        > * {
-          margin-bottom: 0;
-        }
-      }
-
-      th {
-        font-weight: bold;
-        text-align: left;
-      }
-
-      .selectedCell:after {
-        z-index: 2;
-        position: absolute;
-        content: "";
-        left: 0; right: 0; top: 0; bottom: 0;
-        background: rgba(200, 200, 255, 0.4);
-        pointer-events: none;
-      }
-
-      .column-resize-handle {
-        position: absolute;
-        right: -2px; top: 0; bottom: 0;
-        width: 4px;
-        z-index: 20;
-        background-color: #adf;
-        pointer-events: none;
-      }
-    }
-
-    .tableWrapper {
-      margin: 1em 0;
-      overflow-x: auto;
-    }
-
-    .resize-cursor {
-      cursor: ew-resize;
-      cursor: col-resize;
-    }
-
-  }
+.subheading {
+    font-size: 26px !important;
+    font-weight: 400;
 }
+
+:focus {
+  outline :none;
+}
+
+.myFonts {
+  font-family: 'Times New Roman', sans-serif;
+  line-height: 1.5;
+  font-size: 20px;
+}
+
+img {
+    border-style: none;
+    width: 700px;
+    padding: 5px;
+    
+
+     border: solid 1px #CCC;
+    -moz-box-shadow: 1px 1px 5px #999;
+    -webkit-box-shadow: 1px 1px 5px #999;
+        box-shadow: 1px 1px 5px #999;
+}
+
+#myImage {
+  width: 200px;
+}
+
 </style>

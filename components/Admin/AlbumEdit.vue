@@ -141,6 +141,8 @@ export default {
     onCreate(){
       //console.log('Album: ', this.album)
       //console.log('Post: ', this.album)
+
+      //FIXME: Poprawić adres!!
       this.newAlbum.imgUrl = 'http://localhost:8000/images/' + this.album.image.key + '.' + this.album.image.ext + '#' + new Date().getTime();
       //console.log('this.newAlbum.imgUrl: ', this.newAlbum.imgUrl)
       this.newAlbum.id = this.album.id

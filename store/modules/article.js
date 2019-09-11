@@ -20,7 +20,7 @@ export const state = {
   pagination: {
     descending: true,
     page: 1,
-    perPage: 9,
+    perPage: 3,
     totalItems: 11,
     rowsPerPageItems: [1, 2, 4, 8, 16],
   }
@@ -35,8 +35,8 @@ export const mutations = {
     state.articles = articles
     this.state.pagination.page = page
   },
-  SET_ARTICLE(state, articles){
-    //console.log(articles)
+  SET_ARTICLES(state, articles){
+    console.log(articles)
     state.articles = articles
   },
 
@@ -49,7 +49,7 @@ export const mutations = {
     //console.log('state.articles[index]: ' , state.articles[index] )
   },
 
-  SET_ALBUM(state, article){
+  SET_ARTICLE(state, article){
     state.article = article
     //console.log('SET_Article: ', state.article)
   },
@@ -100,34 +100,44 @@ export const actions = {
           dispatch('notification/add', notification, {root: true})         
           throw error
         })
-  },
-///-----------------------------------------------------------------------------
+  },///-----------------------------------------------------------------------------
 
-  fetchEvents({commit, dispatch, getters}, page){
+  fetchArticles({commit, dispatch, getters}, page){
+    ArticleService.articlesCounter()
+    .then(response => {
+      commit( 'SET_ARTICLES_TOTAL',response.data )
+    })
+    .catch(error => {
+      console.log('Błąd! Nie udało się odczytać liczby artykułów z bd:', error.response)
+    })
 
-  },
-///-----------------------------------------------------------------------------
+    ArticleService.getArticles(state.pagination.perPage, page  )
+    .then(response => {     
+      console.log('Artykuły: ', response.data)
+      commit('SET_ARTICLES', response.data, page)  
+    })
+    .catch(error => {
+      console.log('Błąd odczytu artykółów z bd:', error.response)
+      const notification = {
+        type: 'error',
+        massege: 'Wystąpił problem z ładowaniem Artykułów. ' +  error.response
+      }
+      dispatch('notification/add', notification, {root: true})
+    })
+  },///-----------------------------------------------------------------------------
 
-  fetchAlbum({ commit, getters, dispatch }, id) {
+  fetchArticle({ commit, getters, dispatch }, id) {
    
-  },
-///-----------------------------------------------------------------------------
+  },///-----------------------------------------------------------------------------
 
-  fetchImage({commit},  article){
+  deleteArticle({ commit, dispatch },id ) {  
    
-  },
-///-----------------------------------------------------------------------------
-
-  deleteAlbum({ commit, dispatch },id ) {  
-   
-  },
-///-----------------------------------------------------------------------------
+  },///-----------------------------------------------------------------------------
  
 
-  updateAlbum({commit, getters, dispatch}, aritcle) {
+  updateArticle({commit, getters, dispatch}, aritcle) {
     
-  }
-///-----------------------------------------------------------------------------
+  },///-----------------------------------------------------------------------------
  
 }
 ///----------------

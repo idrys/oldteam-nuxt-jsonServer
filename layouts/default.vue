@@ -25,9 +25,14 @@
     
     <!-- Elementy będą znajdować się pod  -->
 
+  <!-- <v-container>
+    <v-layout> -->
+      
     <nuxt/>
-
+    <!-- </v-layout>
+    </v-container> -->
         <!-- Elementy będą znajdować się nad  -->
+
 
 
           <v-footer class="blue darken-2">

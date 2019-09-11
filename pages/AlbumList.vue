@@ -13,6 +13,9 @@
             :edit = false
             ></Album>
         </v-card>
+
+
+
       </v-flex> 
 
     </v-layout>
